@@ -1,4 +1,4 @@
-import { mockEmails } from "./mockData";
+import { store } from "./store";
 import type { Email } from "@/types";
 
 const delay = <T,>(v: T, ms = 300) => new Promise<T>(r => setTimeout(() => r(v), ms));
@@ -16,7 +16,7 @@ export interface EmailFilters {
 }
 
 export async function listEmails(filters: EmailFilters = {}) {
-  let items = [...mockEmails];
+  let items = [...store.emails];
   if (filters.department && filters.department !== "all") items = items.filter(e => e.department === filters.department);
   if (filters.status && filters.status !== "all") items = items.filter(e => e.status === filters.status);
   if (filters.client && filters.client !== "all") items = items.filter(e => e.clientId === filters.client);
@@ -40,13 +40,24 @@ export async function listEmails(filters: EmailFilters = {}) {
 }
 
 export async function getEmail(id: string): Promise<Email | undefined> {
-  return delay(mockEmails.find(e => e.id === id));
+  return delay(store.getEmailById(id));
 }
 
 export async function getLowConfidenceEmails() {
-  return delay(mockEmails.filter(e => e.ai.confidence < 0.7));
+  return delay(store.getLowConfidenceEmails());
 }
 
-export async function approveEmail(id: string) { return delay({ id, ok: true }); }
-export async function rejectEmail(id: string) { return delay({ id, ok: true }); }
-export async function reclassifyEmail(id: string, department: string) { return delay({ id, department, ok: true }); }
+export async function approveEmail(id: string) {
+  const email = store.approveEmail(id);
+  return delay({ id, ok: !!email });
+}
+
+export async function rejectEmail(id: string) {
+  const email = store.rejectEmail(id);
+  return delay({ id, ok: !!email });
+}
+
+export async function reclassifyEmail(id: string, department: string) {
+  const email = store.reclassifyEmail(id, department as any);
+  return delay({ id, department, ok: !!email });
+}

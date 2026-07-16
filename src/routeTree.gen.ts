@@ -17,7 +17,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as EmailsRouteImport } from './routes/emails'
 import { Route as ClickupRouteImport } from './routes/clickup'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as EmailsIdRouteImport } from './routes/emails.$id'
+import { Route as EmailsIdRouteImport } from './routes/emails_.$id'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -60,15 +60,15 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmailsIdRoute = EmailsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => EmailsRoute,
+  id: '/emails_/$id',
+  path: '/emails/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/clickup': typeof ClickupRoute
-  '/emails': typeof EmailsRouteWithChildren
+  '/emails': typeof EmailsRoute
   '/login': typeof LoginRoute
   '/manual-review': typeof ManualReviewRoute
   '/reports': typeof ReportsRoute
@@ -79,7 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/clickup': typeof ClickupRoute
-  '/emails': typeof EmailsRouteWithChildren
+  '/emails': typeof EmailsRoute
   '/login': typeof LoginRoute
   '/manual-review': typeof ManualReviewRoute
   '/reports': typeof ReportsRoute
@@ -91,13 +91,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/clickup': typeof ClickupRoute
-  '/emails': typeof EmailsRouteWithChildren
+  '/emails': typeof EmailsRoute
   '/login': typeof LoginRoute
   '/manual-review': typeof ManualReviewRoute
   '/reports': typeof ReportsRoute
   '/settings': typeof SettingsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/emails/$id': typeof EmailsIdRoute
+  '/emails_/$id': typeof EmailsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -132,18 +132,19 @@ export interface FileRouteTypes {
     | '/reports'
     | '/settings'
     | '/sitemap.xml'
-    | '/emails/$id'
+    | '/emails_/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ClickupRoute: typeof ClickupRoute
-  EmailsRoute: typeof EmailsRouteWithChildren
+  EmailsRoute: typeof EmailsRoute
   LoginRoute: typeof LoginRoute
   ManualReviewRoute: typeof ManualReviewRoute
   ReportsRoute: typeof ReportsRoute
   SettingsRoute: typeof SettingsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  EmailsIdRoute: typeof EmailsIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -204,36 +205,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/emails/$id': {
-      id: '/emails/$id'
-      path: '/$id'
+    '/emails_/$id': {
+      id: '/emails_/$id'
+      path: '/emails/$id'
       fullPath: '/emails/$id'
       preLoaderRoute: typeof EmailsIdRouteImport
-      parentRoute: typeof EmailsRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface EmailsRouteChildren {
-  EmailsIdRoute: typeof EmailsIdRoute
-}
-
-const EmailsRouteChildren: EmailsRouteChildren = {
-  EmailsIdRoute: EmailsIdRoute,
-}
-
-const EmailsRouteWithChildren =
-  EmailsRoute._addFileChildren(EmailsRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ClickupRoute: ClickupRoute,
-  EmailsRoute: EmailsRouteWithChildren,
+  EmailsRoute: EmailsRoute,
   LoginRoute: LoginRoute,
   ManualReviewRoute: ManualReviewRoute,
   ReportsRoute: ReportsRoute,
   SettingsRoute: SettingsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  EmailsIdRoute: EmailsIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

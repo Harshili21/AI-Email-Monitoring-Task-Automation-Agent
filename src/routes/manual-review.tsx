@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -10,7 +10,7 @@ import { StatusBadge, ConfidenceBadge, SentimentBadge, DepartmentBadge } from "@
 import { getLowConfidenceEmails, approveEmail, rejectEmail, reclassifyEmail } from "@/services/emailService";
 import { createTaskFromEmail } from "@/services/clickupService";
 import { toast } from "sonner";
-import { Check, X, ListPlus } from "lucide-react";
+import { Check, X, ListPlus, Loader2, RefreshCw } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/manual-review")({
@@ -20,9 +20,67 @@ export const Route = createFileRoute("/manual-review")({
 
 const DEPTS = ["Sales", "Support", "Finance", "Operations", "HR", "Legal"];
 
+// All query keys that should be invalidated after any mutation
+const INVALIDATE_KEYS = ["low-conf", "tasks", "stats", "emails", "recent-emails", "recent-tasks", "dept-dist", "status-dist", "sentiment-dist"];
+
 function ManualReviewPage() {
+  const queryClient = useQueryClient();
   const { data, isLoading, refetch } = useQuery({ queryKey: ["low-conf"], queryFn: getLowConfidenceEmails });
-  const [reclassifying, setReclassifying] = useState<Record<string, string>>({});
+  const [loadingAction, setLoadingAction] = useState<Record<string, string>>({});
+
+  const invalidateAll = () => {
+    INVALIDATE_KEYS.forEach(key => queryClient.invalidateQueries({ queryKey: [key] }));
+  };
+
+  const withLoading = async (emailId: string, action: string, fn: () => Promise<void>) => {
+    setLoadingAction(prev => ({ ...prev, [emailId]: action }));
+    try {
+      await fn();
+    } finally {
+      setLoadingAction(prev => {
+        const next = { ...prev };
+        delete next[emailId];
+        return next;
+      });
+    }
+  };
+
+  const handleApprove = (emailId: string) =>
+    withLoading(emailId, "approve", async () => {
+      await approveEmail(emailId);
+      toast.success("Email approved and marked as completed");
+      invalidateAll();
+    });
+
+  const handleReject = (emailId: string) =>
+    withLoading(emailId, "reject", async () => {
+      await rejectEmail(emailId);
+      toast.error("Email rejected");
+      invalidateAll();
+    });
+
+  const handleReclassify = (emailId: string, department: string) =>
+    withLoading(emailId, "reclassify", async () => {
+      await reclassifyEmail(emailId, department);
+      toast.success(`Reclassified to ${department}`);
+      invalidateAll();
+    });
+
+  const handleCreateTask = (emailId: string) =>
+    withLoading(emailId, "task", async () => {
+      const result = await createTaskFromEmail(emailId);
+      if (result.ok) {
+        toast.success(`ClickUp task ${result.taskId} created`);
+      } else {
+        toast.error("Task already exists for this email");
+      }
+      invalidateAll();
+    });
+
+  const isActionLoading = (emailId: string, action?: string) => {
+    if (!action) return !!loadingAction[emailId];
+    return loadingAction[emailId] === action;
+  };
 
   return (
     <div>
@@ -30,6 +88,7 @@ function ManualReviewPage() {
         title="Manual Review"
         description="Emails with AI confidence below 70% — verify or reclassify them"
         breadcrumbs={[{ label: "Home", to: "/" }, { label: "Manual Review" }]}
+        actions={<Button variant="outline" size="sm" onClick={() => refetch()}><RefreshCw className="mr-2 h-4 w-4" />Refresh</Button>}
       />
       <Card className="border-border/60 shadow-[var(--shadow-soft)]">
         <CardContent className="p-0">
@@ -62,20 +121,50 @@ function ManualReviewPage() {
                     <TableCell><ConfidenceBadge value={e.ai.confidence} /></TableCell>
                     <TableCell><StatusBadge status={e.status} /></TableCell>
                     <TableCell>
-                      <Select value={reclassifying[e.id] ?? ""} onValueChange={async v => {
-                        setReclassifying(r => ({ ...r, [e.id]: v }));
-                        await reclassifyEmail(e.id, v);
-                        toast.success(`Reclassified to ${v}`);
-                      }}>
+                      <Select
+                        value=""
+                        disabled={isActionLoading(e.id)}
+                        onValueChange={v => handleReclassify(e.id, v)}
+                      >
                         <SelectTrigger className="h-8 w-[130px]"><SelectValue placeholder="Change..." /></SelectTrigger>
                         <SelectContent>{DEPTS.map(d => <SelectItem key={d} value={d}>{d}</SelectItem>)}</SelectContent>
                       </Select>
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end gap-1">
-                        <Button size="icon" variant="ghost" onClick={async () => { await approveEmail(e.id); toast.success("Approved"); refetch(); }}><Check className="h-4 w-4 text-success" /></Button>
-                        <Button size="icon" variant="ghost" onClick={async () => { await rejectEmail(e.id); toast.error("Rejected"); refetch(); }}><X className="h-4 w-4 text-destructive" /></Button>
-                        <Button size="icon" variant="ghost" onClick={async () => { await createTaskFromEmail(e.id); toast.success("Task created"); }}><ListPlus className="h-4 w-4" /></Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          disabled={isActionLoading(e.id)}
+                          onClick={() => handleApprove(e.id)}
+                          title="Approve"
+                        >
+                          {isActionLoading(e.id, "approve")
+                            ? <Loader2 className="h-4 w-4 animate-spin" />
+                            : <Check className="h-4 w-4 text-success" />}
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          disabled={isActionLoading(e.id)}
+                          onClick={() => handleReject(e.id)}
+                          title="Reject"
+                        >
+                          {isActionLoading(e.id, "reject")
+                            ? <Loader2 className="h-4 w-4 animate-spin" />
+                            : <X className="h-4 w-4 text-destructive" />}
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          disabled={isActionLoading(e.id)}
+                          onClick={() => handleCreateTask(e.id)}
+                          title="Create ClickUp Task"
+                        >
+                          {isActionLoading(e.id, "task")
+                            ? <Loader2 className="h-4 w-4 animate-spin" />
+                            : <ListPlus className="h-4 w-4" />}
+                        </Button>
                       </div>
                     </TableCell>
                   </TableRow>

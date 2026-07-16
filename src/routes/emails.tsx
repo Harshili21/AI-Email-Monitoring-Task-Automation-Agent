@@ -118,8 +118,8 @@ function EmailsPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead>Sender</TableHead>
-                  <TableHead>Recipient</TableHead>
                   <TableHead>Subject</TableHead>
+                  <TableHead>Preview</TableHead>
                   <TableHead>Department</TableHead>
                   <TableHead>Received</TableHead>
                   <TableHead>Status</TableHead>
@@ -128,15 +128,19 @@ function EmailsPage() {
               </TableHeader>
               <TableBody>
                 {data!.items.map(e => (
-                  <TableRow key={e.id} className="cursor-pointer" onClick={() => navigate({ to: "/emails/$id", params: { id: e.id } })}>
+                  <TableRow
+                    key={e.id}
+                    className="cursor-pointer transition-colors hover:bg-accent/50"
+                    onClick={() => navigate({ to: "/emails/$id", params: { id: e.id } })}
+                  >
                     <TableCell>
                       <div className="font-medium">{e.sender}</div>
                       <div className="text-xs text-muted-foreground">{e.senderEmail}</div>
                     </TableCell>
-                    <TableCell className="text-muted-foreground">{e.recipient}</TableCell>
-                    <TableCell className="max-w-[240px] truncate font-medium">{e.subject}</TableCell>
+                    <TableCell className="max-w-[220px] truncate font-medium">{e.subject}</TableCell>
+                    <TableCell className="max-w-[200px] truncate text-xs text-muted-foreground">{e.plainBody?.slice(0, 80) || "—"}</TableCell>
                     <TableCell><DepartmentBadge department={e.department} /></TableCell>
-                    <TableCell className="text-xs text-muted-foreground">{format(new Date(e.receivedAt), "MMM d, HH:mm")}</TableCell>
+                    <TableCell className="text-xs text-muted-foreground whitespace-nowrap">{format(new Date(e.receivedAt), "MMM d, HH:mm")}</TableCell>
                     <TableCell><StatusBadge status={e.status} /></TableCell>
                     <TableCell className="text-right"><ConfidenceBadge value={e.ai.confidence} /></TableCell>
                   </TableRow>

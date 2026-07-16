@@ -51,7 +51,6 @@ const sRand = <T,>(arr: T[]) => arr[Math.floor(seededRand() * arr.length)];
 export const mockEmails: Email[] = (realEmailsRaw as RawRealEmail[])
   .slice()
   .reverse() // Most recent first
-  .slice(0, 20) // Only include last 20 emails
   .map((raw, i) => {
     const { name, email } = parseSender(raw.Sender);
     const subjectLower = raw.Subject.toLowerCase();
@@ -121,7 +120,7 @@ export const mockEmails: Email[] = (realEmailsRaw as RawRealEmail[])
       clientName,
       subject: cleanSubject,
       body: raw.Body_Text || cleanSubject,
-      htmlBody: raw.Body_Html || `<p>Real email received from ${cleanSender} &lt;${email}&gt;.</p><p><b>Subject:</b> ${cleanSubject}</p><p><b>Date:</b> ${raw.Date}</p>`,
+      htmlBody: raw.Body_Html || `<p><b>Subject:</b> ${cleanSubject}</p><p><b>Date:</b> ${raw.Date}</p><br/><pre style="white-space: pre-wrap; font-family: inherit;">${raw.Body_Text || cleanSubject}</pre>`,
       plainBody: raw.Body_Text || `Real email received from ${cleanSender} <${email}>.\nSubject: ${cleanSubject}\nDate: ${raw.Date}`,
       department,
       status,
