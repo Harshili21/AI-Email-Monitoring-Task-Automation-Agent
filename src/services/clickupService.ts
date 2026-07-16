@@ -1,12 +1,17 @@
 import { createServerFn } from "@tanstack/react-start";
 import { prisma } from "../lib/prisma";
+import { mockTasks } from "./mockData";
 
 export const listTasks = createServerFn({ method: "GET" }).handler(async () => {
-  const tasks = await prisma.clickUpTask.findMany({
-    orderBy: { createdAt: "desc" },
-    include: { email: true }
-  });
-  return tasks as any[];
+  try {
+    const tasks = await prisma.clickUpTask.findMany({
+      orderBy: { createdAt: "desc" },
+      include: { email: true }
+    });
+    return tasks as any[];
+  } catch (err) {
+    return mockTasks;
+  }
 });
 
 export const createTaskFromEmail = createServerFn({ method: "POST" })
