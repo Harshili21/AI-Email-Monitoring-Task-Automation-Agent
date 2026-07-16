@@ -4,6 +4,7 @@ import {
   HeadContent, Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { redirect } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/contexts/theme";
 import { AuthProvider } from "@/contexts/auth";
@@ -71,6 +72,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
+  beforeLoad: ({ location }) => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("user") || sessionStorage.getItem("user");
+      
+      // If NOT logged in, and trying to access a protected page, redirect to Login (/)
+      if (!stored && location.pathname !== "/") {
+        throw redirect({ to: "/" });
+      }
+      
+      // If ALREADY logged in, and trying to access Login (/), redirect to Dashboard
+      if (stored && location.pathname === "/") {
+        throw redirect({ to: "/dashboard" });
+      }
+    }
+  },
 });
 
 function RootShell({ children }: { children: ReactNode }) {

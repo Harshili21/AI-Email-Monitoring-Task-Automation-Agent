@@ -7,7 +7,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const items = [
-  { title: "Dashboard", url: "/", icon: LayoutDashboard },
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Emails", url: "/emails", icon: Mail },
   { title: "Manual Review", url: "/manual-review", icon: ShieldCheck },
   { title: "ClickUp Tasks", url: "/clickup", icon: ListChecks },
@@ -19,12 +19,12 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const pathname = useRouterState({ select: s => s.location.pathname });
-  const isActive = (url: string) => url === "/" ? pathname === "/" : pathname.startsWith(url);
+  const isActive = (url: string) => url === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(url);
 
   return (
     <Sidebar collapsible="icon" className="border-r">
       <SidebarHeader className="border-b py-4">
-        <Link to="/" className="flex items-center gap-2 px-2">
+        <Link to="/dashboard" className="flex items-center gap-2 px-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Sparkles className="h-4 w-4" />
           </div>

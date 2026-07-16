@@ -13,8 +13,8 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as ManualReviewRouteImport } from './routes/manual-review'
-import { Route as LoginRouteImport } from './routes/login'
 import { Route as EmailsRouteImport } from './routes/emails'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ClickupRouteImport } from './routes/clickup'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmailsIdRouteImport } from './routes/emails_.$id'
@@ -39,14 +39,14 @@ const ManualReviewRoute = ManualReviewRouteImport.update({
   path: '/manual-review',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const EmailsRoute = EmailsRouteImport.update({
   id: '/emails',
   path: '/emails',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ClickupRoute = ClickupRouteImport.update({
@@ -68,8 +68,8 @@ const EmailsIdRoute = EmailsIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/clickup': typeof ClickupRoute
+  '/dashboard': typeof DashboardRoute
   '/emails': typeof EmailsRoute
-  '/login': typeof LoginRoute
   '/manual-review': typeof ManualReviewRoute
   '/reports': typeof ReportsRoute
   '/settings': typeof SettingsRoute
@@ -79,8 +79,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/clickup': typeof ClickupRoute
+  '/dashboard': typeof DashboardRoute
   '/emails': typeof EmailsRoute
-  '/login': typeof LoginRoute
   '/manual-review': typeof ManualReviewRoute
   '/reports': typeof ReportsRoute
   '/settings': typeof SettingsRoute
@@ -91,8 +91,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/clickup': typeof ClickupRoute
+  '/dashboard': typeof DashboardRoute
   '/emails': typeof EmailsRoute
-  '/login': typeof LoginRoute
   '/manual-review': typeof ManualReviewRoute
   '/reports': typeof ReportsRoute
   '/settings': typeof SettingsRoute
@@ -104,8 +104,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/clickup'
+    | '/dashboard'
     | '/emails'
-    | '/login'
     | '/manual-review'
     | '/reports'
     | '/settings'
@@ -115,8 +115,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/clickup'
+    | '/dashboard'
     | '/emails'
-    | '/login'
     | '/manual-review'
     | '/reports'
     | '/settings'
@@ -126,8 +126,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/clickup'
+    | '/dashboard'
     | '/emails'
-    | '/login'
     | '/manual-review'
     | '/reports'
     | '/settings'
@@ -138,8 +138,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ClickupRoute: typeof ClickupRoute
+  DashboardRoute: typeof DashboardRoute
   EmailsRoute: typeof EmailsRoute
-  LoginRoute: typeof LoginRoute
   ManualReviewRoute: typeof ManualReviewRoute
   ReportsRoute: typeof ReportsRoute
   SettingsRoute: typeof SettingsRoute
@@ -177,18 +177,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ManualReviewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/emails': {
       id: '/emails'
       path: '/emails'
       fullPath: '/emails'
       preLoaderRoute: typeof EmailsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/clickup': {
@@ -218,8 +218,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ClickupRoute: ClickupRoute,
+  DashboardRoute: DashboardRoute,
   EmailsRoute: EmailsRoute,
-  LoginRoute: LoginRoute,
   ManualReviewRoute: ManualReviewRoute,
   ReportsRoute: ReportsRoute,
   SettingsRoute: SettingsRoute,

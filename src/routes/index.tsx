@@ -1,333 +1,175 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { KpiCard } from "@/components/kpi-card";
-import { ChartCard } from "@/components/chart-card";
-import { PageHeader } from "@/components/page-header";
-import { StatusBadge, SentimentBadge, TaskStatusBadge } from "@/components/badges";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { LoadingSpinner } from "@/components/common";
-import {
-  Mail, Clock, CheckCircle2, ShieldAlert, Gauge,
-  Activity, ArrowUpRight, Inbox
-} from "lucide-react";
-
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler,
-} from "chart.js";
-import { Line, Bar, Doughnut } from "react-chartjs-2";
-
-import {
-  getStats, getTrend, getSentimentDistribution, getDepartmentDistribution,
-  getStatusDistribution, getRecentEmails, getRecentTasks, getActivity,
-} from "@/services/dashboardService";
-import { formatDistanceToNow } from "date-fns";
-
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Title, Tooltip, Legend, Filler);
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Inbox, Loader2, CheckCircle2 } from "lucide-react";
+import { useAuth } from "@/contexts/auth";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/")({
-  head: () => ({ meta: [{ title: "Dashboard — MailPilot" }] }),
-  component: DashboardPage,
+  head: () => ({ meta: [{ title: "Sign In — MailPilot" }] }),
+  component: LoginPage,
 });
 
-function DashboardPage() {
+function LoginPage() {
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const stats = useQuery({ queryKey: ["stats"], queryFn: getStats });
-  const trend = useQuery({ queryKey: ["trend"], queryFn: getTrend });
-  const sentiment = useQuery({ queryKey: ["sentiment"], queryFn: getSentimentDistribution });
-  const dept = useQuery({ queryKey: ["dept"], queryFn: getDepartmentDistribution });
-  const status = useQuery({ queryKey: ["status-dist"], queryFn: getStatusDistribution });
-  const emails = useQuery({ queryKey: ["recent-emails"], queryFn: () => getRecentEmails({ data: 5 }) });
-  const tasks = useQuery({ queryKey: ["recent-tasks"], queryFn: () => getRecentTasks({ data: 5 }) });
-  const activity = useQuery({ queryKey: ["activity"], queryFn: () => getActivity({ data: 8 }) });
+  const [email, setEmail] = useState("manager@company.com");
+  const [password, setPassword] = useState("password");
+  const [remember, setRemember] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  if (!stats.data) return <LoadingSpinner />;
-  const s = stats.data;
-
-  // Professional enterprise color palette
-  const COLORS = {
-    primary: "#0f172a", // Slate 900
-    secondary: "#64748b", // Slate 500
-    accent: "#0284c7", // Sky 600
-    success: "#059669", // Emerald 600
-    warning: "#d97706", // Amber 600
-    destructive: "#dc2626", // Red 600
-    muted: "#e2e8f0" // Slate 200
-  };
-
-  const chartOptionsBase = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        backgroundColor: "rgba(255, 255, 255, 0.95)",
-        titleColor: "#0f172a",
-        bodyColor: "#475569",
-        borderColor: "#e2e8f0",
-        borderWidth: 1,
-        padding: 12,
-        boxPadding: 4,
-        usePointStyle: true,
-      },
-    },
-    scales: {
-      x: { grid: { display: false }, ticks: { color: "#64748b", font: { size: 12 } }, border: { display: false } },
-      y: { grid: { color: "#e2e8f0", drawTicks: false, borderDash: [4, 4] }, ticks: { color: "#64748b", font: { size: 12 }, maxTicksLimit: 6 }, border: { display: false } },
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await login(email, password, remember);
+      toast.success("Authentication successful");
+      navigate({ to: "/dashboard" });
+    } catch {
+      toast.error("Authentication failed. Please check your credentials.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const trendData = {
-    labels: (trend.data ?? []).map(d => d.date),
-    datasets: [
-      {
-        label: "Total Volume",
-        data: (trend.data ?? []).map(d => d.emails),
-        borderColor: "#64b5f6",
-        backgroundColor: "#64b5f61A", // 10% opacity
-        borderWidth: 2,
-        fill: true,
-        tension: 0.4,
-        pointRadius: 0,
-        pointHoverRadius: 4,
-      },
-      {
-        label: "Processed",
-        data: (trend.data ?? []).map(d => d.completed),
-        borderColor: "#81c784",
-        backgroundColor: "#81c7841A",
-        borderWidth: 2,
-        fill: true,
-        tension: 0.4,
-        pointRadius: 0,
-        pointHoverRadius: 4,
-      }
-    ]
-  };
-
-  const sentimentData = {
-    labels: (sentiment.data ?? []).map(d => d.name),
-    datasets: [{
-      data: (sentiment.data ?? []).map(d => d.value),
-      backgroundColor: (sentiment.data ?? []).map(d => 
-        d.name === "Positive" ? "#81c784" : d.name === "Negative" ? "#e57373" : "#64b5f6"
-      ),
-      borderWidth: 0,
-    }]
-  };
-
-  const deptData = {
-    labels: (dept.data ?? []).map(d => d.name),
-    datasets: [{
-      label: "Volume",
-      data: (dept.data ?? []).map(d => d.value),
-      backgroundColor: (dept.data ?? []).map((_, i) => {
-        const palette = [COLORS.accent, COLORS.primary, COLORS.secondary, COLORS.warning, COLORS.success, "#8b5cf6", "#0ea5e9"];
-        return palette[i % palette.length];
-      }),
-      borderRadius: 4,
-    }]
-  };
-
   return (
-    <div className="space-y-6 max-w-[1600px] mx-auto pb-10">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border/40 pb-5">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground">Inbox Overview</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Monitoring inbound traffic and routing automation accuracy.
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="flex flex-col text-right">
-            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Pending Action</span>
-            <span className="text-xl font-bold tabular-nums text-foreground">{s.pending}</span>
-          </div>
-          <div className="h-10 w-px bg-border/60 mx-1" />
-          <div className="flex flex-col text-right">
-            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Routing Accuracy</span>
-            <span className="text-xl font-bold tabular-nums text-foreground">{Math.round(s.avgConfidence * 100)}%</span>
-          </div>
-        </div>
-      </div>
-
-      {/* KPI Grid */}
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" aria-label="Key Performance Indicators">
-        <KpiCard label="Total Volume" value={s.total} icon={Inbox} tone="default" trend="+12% vs last week" />
-        <KpiCard label="Completed" value={s.completed} icon={CheckCircle2} tone="default" trend="Processed successfully" />
-        <KpiCard label="Overdue" value={s.overdue} icon={Clock} tone="default" />
-        <KpiCard label="Needs Review" value={s.needsReview} icon={ShieldAlert} tone="default" />
-      </div>
-
-      {/* Charts Grid */}
-      <div className="grid gap-6 lg:grid-cols-3">
-        <Card className="lg:col-span-2 border-border/40 shadow-sm rounded-xl">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold tracking-tight text-foreground">Inbound Traffic Trend</CardTitle>
-            <CardDescription className="text-xs">Volume over the last 14 days vs processed items.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[280px] mt-4 w-full">
-              <Line data={trendData} options={chartOptionsBase as any} />
+    <div className="flex min-h-screen bg-background">
+      {/* Left side - Login Form */}
+      <div className="flex w-full flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:w-1/2 lg:px-20 xl:px-24">
+        <div className="mx-auto w-full max-w-sm lg:w-96">
+          <div className="flex items-center gap-2 mb-8">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
+              <Inbox className="h-5 w-5" />
             </div>
-          </CardContent>
-        </Card>
+            <span className="text-xl font-bold tracking-tight text-foreground">MailPilot</span>
+          </div>
+          
+          <h2 className="mt-6 text-2xl font-semibold tracking-tight text-foreground">
+            Sign in to your workspace
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Enter your corporate credentials to continue to the dashboard.
+          </p>
 
-        <Card className="border-border/40 shadow-sm rounded-xl">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold tracking-tight text-foreground">Customer Mood</CardTitle>
-            <CardDescription className="text-xs">Aggregated sentiment analysis.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[280px] mt-4 w-full flex items-center justify-center">
-              <div className="h-[220px] w-full">
-                <Doughnut 
-                  data={sentimentData} 
-                  options={{
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: "70%",
-                    plugins: {
-                      legend: { position: "bottom", labels: { usePointStyle: true, boxWidth: 6, font: { size: 12 } } },
-                      tooltip: chartOptionsBase.plugins.tooltip
-                    }
-                  } as any} 
+          <div className="mt-8">
+            <form onSubmit={onSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-foreground">
+                  Email Address
+                </Label>
+                <div className="mt-2">
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="block w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between mt-2">
+                  <Label htmlFor="password" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-foreground">
+                    Password
+                  </Label>
+                  <a href="#" className="text-sm font-medium text-primary hover:text-primary/90 hover:underline">
+                    Forgot password?
+                  </a>
+                </div>
+                <div className="mt-2">
+                  <Input
+                    id="password"
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="block w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  id="remember"
+                  checked={remember}
+                  onCheckedChange={(v) => setRemember(!!v)}
+                  className="rounded-sm border-primary text-primary focus:ring-primary"
                 />
+                <label htmlFor="remember" className="text-sm text-muted-foreground cursor-pointer select-none">
+                  Keep me signed in
+                </label>
+              </div>
+
+              <div>
+                <Button
+                  type="submit"
+                  className="w-full flex justify-center py-2.5 px-4"
+                  disabled={loading}
+                >
+                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  Sign In
+                </Button>
+              </div>
+            </form>
+          </div>
+          
+          <div className="mt-10">
+            <p className="text-center text-xs text-muted-foreground">
+              Secure access requires an authorized corporate account.<br />
+              Contact IT Support if you are experiencing issues.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Right side - Branding/Feature Highlight */}
+      <div className="relative hidden w-0 flex-1 lg:block bg-slate-900">
+        <div className="absolute inset-0 h-full w-full object-cover p-12 flex flex-col justify-between">
+          <div className="flex items-center gap-2 text-white/50">
+            {/* Optional subtle background elements */}
+          </div>
+          
+          <div className="max-w-xl text-white space-y-6">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+              Intelligent Inbox Management
+            </h1>
+            <p className="text-lg text-slate-300 leading-relaxed">
+              MailPilot streamlines your customer communication, automatically routing emails, extracting tasks, and analyzing sentiment to improve response times and customer satisfaction.
+            </p>
+            
+            <div className="pt-8 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                  <CheckCircle2 className="h-5 w-5" />
+                </div>
+                <span className="text-slate-300">Automated classification and routing</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20 text-blue-400">
+                  <CheckCircle2 className="h-5 w-5" />
+                </div>
+                <span className="text-slate-300">Seamless ClickUp task synchronization</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/20 text-purple-400">
+                  <CheckCircle2 className="h-5 w-5" />
+                </div>
+                <span className="text-slate-300">Real-time sentiment and urgency analysis</span>
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-3">
-        <Card className="lg:col-span-2 border-border/40 shadow-sm rounded-xl">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold tracking-tight text-foreground">Routing Distribution</CardTitle>
-            <CardDescription className="text-xs">Volume segmented by target department.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[240px] mt-4 w-full">
-              <Bar 
-                data={deptData} 
-                options={{
-                  ...chartOptionsBase,
-                  scales: {
-                    x: { ...chartOptionsBase.scales.x, grid: { display: false } },
-                    y: { ...chartOptionsBase.scales.y, beginAtZero: true }
-                  }
-                } as any} 
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-border/40 shadow-sm rounded-xl flex flex-col">
-          <CardHeader className="pb-2 border-b border-border/40">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold tracking-tight">
-              <Activity className="h-4 w-4 text-muted-foreground" /> System Activity
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-0 flex-1 overflow-y-auto max-h-[260px]">
-            <div className="divide-y divide-border/30">
-              {(activity.data ?? []).map(a => (
-                <div key={a.id} className="p-4 hover:bg-muted/30 transition-colors">
-                  <div className="flex gap-3">
-                    <div className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-400" />
-                    <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-foreground">{a.message}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5 font-mono">{formatDistanceToNow(new Date(a.timestamp), { addSuffix: true })}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="grid gap-6 grid-cols-1">
-        <Card className="border-border/40 shadow-sm rounded-xl">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 border-b border-border/40">
-            <div>
-              <CardTitle className="text-sm font-semibold tracking-tight text-foreground">Recent Communications</CardTitle>
-              <CardDescription className="text-xs mt-1">Latest inbound items pending or processed.</CardDescription>
-            </div>
-            <Link to="/emails" className="text-xs font-medium text-slate-500 hover:text-slate-900 transition-colors">
-              View All &rarr;
-            </Link>
-          </CardHeader>
-          <CardContent className="p-0">
-            <Table>
-              <TableHeader>
-                <TableRow className="hover:bg-transparent">
-                  <TableHead className="h-10 text-xs">Sender</TableHead>
-                  <TableHead className="h-10 text-xs">Subject</TableHead>
-                  <TableHead className="h-10 text-xs">Mood</TableHead>
-                  <TableHead className="h-10 text-xs text-right">Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {(emails.data ?? []).map(e => (
-                  <TableRow key={e.id} className="cursor-pointer transition-colors hover:bg-muted/40" onClick={() => navigate({ to: "/emails/$id", params: { id: e.id } })}>
-                    <TableCell className="py-2.5">
-                      <span className="font-medium text-sm text-foreground">{e.sender}</span>
-                    </TableCell>
-                    <TableCell className="py-2.5 max-w-[160px] truncate text-sm text-muted-foreground">{e.subject}</TableCell>
-                    <TableCell className="py-2.5"><SentimentBadge sentiment={e.ai.sentiment} /></TableCell>
-                    <TableCell className="py-2.5 text-right"><StatusBadge status={e.status} /></TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-
-        <Card className="border-border/40 shadow-sm rounded-xl">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 border-b border-border/40">
-            <div>
-              <CardTitle className="text-sm font-semibold tracking-tight text-foreground">ClickUp Synchronization</CardTitle>
-              <CardDescription className="text-xs mt-1">Tasks automatically created in the workspace.</CardDescription>
-            </div>
-            <Link to="/clickup" className="text-xs font-medium text-slate-500 hover:text-slate-900 transition-colors">
-              View All &rarr;
-            </Link>
-          </CardHeader>
-          <CardContent className="p-0">
-            <Table>
-              <TableHeader>
-                <TableRow className="hover:bg-transparent">
-                  <TableHead className="h-10 text-xs">Reference</TableHead>
-                  <TableHead className="h-10 text-xs">Context</TableHead>
-                  <TableHead className="h-10 text-xs text-right">Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {(tasks.data ?? []).map(t => (
-                  <TableRow key={t.id} className="transition-colors hover:bg-muted/40">
-                    <TableCell className="py-2.5 font-mono text-xs font-medium text-slate-600">{t.taskId}</TableCell>
-                    <TableCell className="py-2.5">
-                      <div className="flex flex-col">
-                        <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">{t.folder}</span>
-                        <span className="max-w-[180px] truncate text-sm text-foreground mt-0.5">{t.emailSubject}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="py-2.5 text-right"><TaskStatusBadge status={t.status} /></TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+          </div>
+          
+          <div className="flex items-center gap-4 text-sm text-slate-500">
+            <span>&copy; {new Date().getFullYear()} MailPilot Enterprise.</span>
+            <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-slate-300 transition-colors">Terms of Service</a>
+          </div>
+        </div>
       </div>
     </div>
   );
