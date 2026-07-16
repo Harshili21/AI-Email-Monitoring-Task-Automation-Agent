@@ -1,0 +1,182 @@
+[
+  {
+    "Subject": "URGENT: Outstanding Invoice #INV-2026-089",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+accounts@gmail.com",
+    "Date": "Thu, 16 Jul 2026 09:57:43 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hello,\r\n\r\nThis is a friendly reminder that invoice #INV-2026-089 is now past due.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "URGENT: Outstanding Invoice #INV-2026-089",
+    "Sender": "Harshili Patni <harshiliitmbu@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:04:24 +0530",
+    "Flags": [],
+    "Body_Text": "This is a friendly reminder that invoice *#INV-2026-089*, issued on June\r\n15, is now past due. The total outstanding balance is $1,450.00.\r\n\r\nWe understand things get busy, but we kindly request that you process this\r\npayment as soon as possible to avoid any disruption to your services. A\r\ncopy of the invoice is attached to this email.\r\n\r\nThank you for your prompt attention to this matter.\r\n\r\nRegards,\r\n\r\nFinance & Accounts Department",
+    "Body_Html": "<div dir=\"ltr\"><p>This is a friendly reminder that invoice <b>#INV-2026-089</b>, issued on June 15, is now past due. The total outstanding balance is $1,450.00.</p><p>We understand things get busy, but we kindly request that you process this payment as soon as possible to avoid any disruption to your services. A copy of the invoice is attached to this email.</p><p>Thank you for your prompt attention to this matter.</p><p>Regards,</p><p>Finance &amp; Accounts Department</p></div>"
+  },
+  {
+    "Subject": "Quick question regarding your Q3 growth strategies",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+sales@gmail.com",
+    "Date": "Thu, 16 Jul 2026 09:57:39 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Team,\n\nI\u2019ve been following your company\u2019s recent expansions... Do you have 10 minutes this Thursday?",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Quick question regarding your Q3 growth strategies",
+    "Sender": "Harshili Patni <harshiliitmbu@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:02:50 +0530",
+    "Flags": [],
+    "Body_Text": "Hi Team,\r\n\r\nI\u2019ve been following your company\u2019s recent expansions and noticed you are\r\nscaling your operations this quarter. Many firms in your space struggle\r\nwith lead conversion efficiency during rapid growth.\r\n\r\nWe help teams automate their top-of-funnel pipeline, typically increasing\r\nconversion rates by 20%. Do you have 10 minutes this Thursday for a brief\r\nintroductory call?\r\n\r\nBest regards,",
+    "Body_Html": "<div dir=\"ltr\"><p>Hi Team,</p><p>I\u2019ve been following your company\u2019s recent expansions and noticed you are scaling your operations this quarter. Many firms in your space struggle with lead conversion efficiency during rapid growth.</p><p>We help teams automate their top-of-funnel pipeline, typically increasing conversion rates by 20%. Do you have 10 minutes this Thursday for a brief introductory call?</p><p>Best regards,</p></div>"
+  },
+  {
+    "Subject": "Q2 Budget Review Approval Required",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+finance@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:42 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Team,\r\n\r\nThe updated allocation for the upcoming quarter is ready. Please review the spreadsheet and submit your approvals by Friday evening.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Urgent: Expense Reimbursement Discrepancy",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+finance@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:44 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hello,\r\n\r\nWe noticed a missing receipt for your travel claim on June 14th. Please upload the missing document so we can process your payout.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Exclusive Beta Access: Optimize your cloud workflows",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+sales@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:47 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi there,\r\n\r\nWe just launched early access to our new cloud management suite. Would you be open to a 5-minute preview next Tuesday?",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Proposal Follow-up: Enterprise Tier Pricing",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+sales@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:50 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Team,\r\n\r\nFollowing up on our conversation last week. I've attached the adjusted enterprise pricing model with the volume discounts we discussed.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Your RSVP is Confirmed: Tech Vision Summit 2026",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+marketing@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:53 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Get ready! Your ticket for the virtual summit is locked in. The keynote session kicks off streaming live at 9:00 AM EST.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Quarterly Performance Review Cycle is Open",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+hr@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:56 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Everyone,\r\n\r\nThe self-evaluation portal is now open for the current cycle. Please complete your written assessments before the end of the month.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Update: Changes to Company Health Benefits Package",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+hr@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:58 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Dear Team,\r\n\r\nPlease review the attached document outlining the expanded medical coverages and updated dental options taking effect next month.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Schedule Conflict: Interview Rescheduling Request",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+hr@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:01 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Candidate,\r\n\r\nDue to an unexpected conflict, we need to shift our interview time. Would any of the timeslots this Thursday afternoon work for you?",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Ticket #99214: Missing API payload data resolved",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+support@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:04 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hello,\r\n\r\nOur technical team patched the webhooks issue. The system is parsing JSON payloads normally again. Let us know if you encounter any errors.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Feedback Request: How did we handle your recent request?",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+support@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:07 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi customer,\r\n\r\nWe value your input! Please take 30 seconds to rate your experience with our technical support agent earlier today.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "CRITICAL: Mandatory Security Patch for Laptops",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+it@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:10 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Attention,\r\n\r\nA critical system vulnerability requires an immediate update. Please restart your device to trigger the automated security installation.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "NDA Signature Request: Project Echo Partnerships",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+legal@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:12 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hello,\r\n\r\nThe mutual non-disclosure agreement for the upcoming integration is ready for signature inside the corporate document portal.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Press Release Draft: Q2 Technological Innovation Milestone",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+pr@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:15 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Team,\r\n\r\nAttached is the final draft of our upcoming product announcement wire. Please review the quotes for final approval before distribution.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Inventory Notice: Office Supply Restocking Completed",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+ops@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:18 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi All,\r\n\r\nThe central supply cabinet has been restocked with essentials. If you need specialized hardware accessories, file a request through the internal desk.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Scheduled Maintenance: Server Room HVAC Testing",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+ops@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:21 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Team,\r\n\r\nEngineers will perform routine testing on the facility cooling systems this evening. Expect brief fluctuations in room temperatures.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Demo mail",
+    "Sender": "harshili Patni <harshilipatni21@gmail.com>",
+    "Recipient": "\"demo.signal.test@gmail.com\" <demo.signal.test@gmail.com>",
+    "Date": "Thu, 16 Jul 2026 23:14:35 +0530",
+    "Flags": [],
+    "Body_Text": "",
+    "Body_Html": "<div dir=\"ltr\"><br></div>"
+  }
+]
