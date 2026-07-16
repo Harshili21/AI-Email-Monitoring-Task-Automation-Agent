@@ -1,202 +1,290 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { KpiCard } from "@/components/kpi-card";
 import { ChartCard } from "@/components/chart-card";
 import { PageHeader } from "@/components/page-header";
-import { StatusBadge, SentimentBadge, DepartmentBadge, TaskStatusBadge } from "@/components/badges";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { StatusBadge, SentimentBadge, TaskStatusBadge } from "@/components/badges";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { LoadingSpinner } from "@/components/common";
 import {
-  Mail, Clock, CheckCircle2, AlertOctagon, ShieldAlert, ListChecks, Gauge,
-  Activity, ArrowUpRight,
+  Mail, Clock, CheckCircle2, ShieldAlert, Gauge,
+  Activity, ArrowUpRight, Inbox
 } from "lucide-react";
+
 import {
-  ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
-  PieChart, Pie, Cell, BarChart, Bar, Legend,
-} from "recharts";
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from "chart.js";
+import { Line, Bar, Doughnut } from "react-chartjs-2";
+
 import {
   getStats, getTrend, getSentimentDistribution, getDepartmentDistribution,
   getStatusDistribution, getRecentEmails, getRecentTasks, getActivity,
 } from "@/services/dashboardService";
 import { formatDistanceToNow } from "date-fns";
 
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Title, Tooltip, Legend, Filler);
+
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [{ title: "Dashboard — MailPilot" }] }),
   component: DashboardPage,
 });
 
-const CHART_COLORS = ["var(--color-chart-1)", "var(--color-chart-2)", "var(--color-chart-3)", "var(--color-chart-4)", "var(--color-chart-5)"];
-
 function DashboardPage() {
+  const navigate = useNavigate();
   const stats = useQuery({ queryKey: ["stats"], queryFn: getStats });
   const trend = useQuery({ queryKey: ["trend"], queryFn: getTrend });
   const sentiment = useQuery({ queryKey: ["sentiment"], queryFn: getSentimentDistribution });
   const dept = useQuery({ queryKey: ["dept"], queryFn: getDepartmentDistribution });
   const status = useQuery({ queryKey: ["status-dist"], queryFn: getStatusDistribution });
-  const emails = useQuery({ queryKey: ["recent-emails"], queryFn: () => getRecentEmails(6) });
-  const tasks = useQuery({ queryKey: ["recent-tasks"], queryFn: () => getRecentTasks(5) });
-  const activity = useQuery({ queryKey: ["activity"], queryFn: () => getActivity(8) });
+  const emails = useQuery({ queryKey: ["recent-emails"], queryFn: () => getRecentEmails({ data: 5 }) });
+  const tasks = useQuery({ queryKey: ["recent-tasks"], queryFn: () => getRecentTasks({ data: 5 }) });
+  const activity = useQuery({ queryKey: ["activity"], queryFn: () => getActivity({ data: 8 }) });
 
   if (!stats.data) return <LoadingSpinner />;
   const s = stats.data;
 
+  // Professional enterprise color palette
+  const COLORS = {
+    primary: "#0f172a", // Slate 900
+    secondary: "#64748b", // Slate 500
+    accent: "#0284c7", // Sky 600
+    success: "#059669", // Emerald 600
+    warning: "#d97706", // Amber 600
+    destructive: "#dc2626", // Red 600
+    muted: "#e2e8f0" // Slate 200
+  };
+
+  const chartOptionsBase = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        titleColor: "#0f172a",
+        bodyColor: "#475569",
+        borderColor: "#e2e8f0",
+        borderWidth: 1,
+        padding: 12,
+        boxPadding: 4,
+        usePointStyle: true,
+      },
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: "#64748b", font: { size: 12 } }, border: { display: false } },
+      y: { grid: { color: "#e2e8f0", drawTicks: false, borderDash: [4, 4] }, ticks: { color: "#64748b", font: { size: 12 }, maxTicksLimit: 6 }, border: { display: false } },
+    }
+  };
+
+  const trendData = {
+    labels: (trend.data ?? []).map(d => d.date),
+    datasets: [
+      {
+        label: "Total Volume",
+        data: (trend.data ?? []).map(d => d.emails),
+        borderColor: "#64b5f6",
+        backgroundColor: "#64b5f61A", // 10% opacity
+        borderWidth: 2,
+        fill: true,
+        tension: 0.4,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+      },
+      {
+        label: "Processed",
+        data: (trend.data ?? []).map(d => d.completed),
+        borderColor: "#81c784",
+        backgroundColor: "#81c7841A",
+        borderWidth: 2,
+        fill: true,
+        tension: 0.4,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+      }
+    ]
+  };
+
+  const sentimentData = {
+    labels: (sentiment.data ?? []).map(d => d.name),
+    datasets: [{
+      data: (sentiment.data ?? []).map(d => d.value),
+      backgroundColor: (sentiment.data ?? []).map(d => 
+        d.name === "Positive" ? "#81c784" : d.name === "Negative" ? "#e57373" : "#64b5f6"
+      ),
+      borderWidth: 0,
+    }]
+  };
+
+  const deptData = {
+    labels: (dept.data ?? []).map(d => d.name),
+    datasets: [{
+      label: "Volume",
+      data: (dept.data ?? []).map(d => d.value),
+      backgroundColor: (dept.data ?? []).map((_, i) => {
+        const palette = [COLORS.accent, COLORS.primary, COLORS.secondary, COLORS.warning, COLORS.success, "#8b5cf6", "#0ea5e9"];
+        return palette[i % palette.length];
+      }),
+      borderRadius: 4,
+    }]
+  };
+
   return (
-    <div className="space-y-6">
-      <PageHeader
-        title="Dashboard"
-        description="Overview of your inbox automation activity"
-        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Dashboard" }]}
-      />
-
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7" aria-label="KPI Metrics">
-        <KpiCard label="Total Emails" value={s.total} icon={Mail} trend="+12% vs last week" />
-        <KpiCard label="Pending" value={s.pending} icon={Clock} tone="warning" />
-        <KpiCard label="Completed" value={s.completed} icon={CheckCircle2} tone="success" />
-        <KpiCard label="Overdue" value={s.overdue} icon={AlertOctagon} tone="destructive" />
-        <KpiCard label="Needs Review" value={s.needsReview} icon={ShieldAlert} tone="warning" />
-        <KpiCard label="ClickUp Tasks" value={s.clickupCreated} icon={ListChecks} tone="info" />
-        <KpiCard label="Avg AI Confidence" value={`${Math.round(s.avgConfidence * 100)}%`} icon={Gauge} />
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-3">
-        <ChartCard title="Email Trend" description="Last 14 days">
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={trend.data ?? []} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="var(--color-chart-1)" stopOpacity={0.35} />
-                    <stop offset="100%" stopColor="var(--color-chart-1)" stopOpacity={0} />
-                  </linearGradient>
-                  <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="var(--color-chart-2)" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="var(--color-chart-2)" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="var(--color-border)" opacity={0.6} />
-                <XAxis dataKey="date" tick={{ fontSize: 13 }} tickLine={false} axisLine={false} stroke="var(--color-muted-foreground)" />
-                <YAxis tick={{ fontSize: 13 }} tickLine={false} axisLine={false} stroke="var(--color-muted-foreground)" width={36} />
-                <Tooltip cursor={{ stroke: "var(--color-border)", strokeWidth: 1 }} contentStyle={{ background: "var(--color-popover)", border: "1px solid var(--color-border)", borderRadius: 10, fontSize: 14, boxShadow: "var(--shadow-elevated)" }} />
-                <Area animationEasing="ease-out" animationDuration={900} type="monotone" dataKey="emails" stroke="var(--color-chart-1)" fill="url(#g1)" strokeWidth={2.25} activeDot={{ r: 4, strokeWidth: 2 }} />
-                <Area animationEasing="ease-out" animationDuration={900} type="monotone" dataKey="completed" stroke="var(--color-chart-2)" fill="url(#g2)" strokeWidth={2.25} activeDot={{ r: 4, strokeWidth: 2 }} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </ChartCard>
-
-        <ChartCard title="Sentiment Distribution">
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie animationEasing="ease-out" animationDuration={800} data={sentiment.data ?? []} dataKey="value" nameKey="name" innerRadius={54} outerRadius={82} paddingAngle={3} stroke="var(--color-card)" strokeWidth={2}>
-                  {(sentiment.data ?? []).map((entry, i) => {
-                    const color = entry.name === "Positive" ? "var(--color-success)" : entry.name === "Negative" ? "var(--color-destructive)" : "oklch(0.65 0.01 240)";
-                    return <Cell key={i} fill={color} />;
-                  })}
-                </Pie>
-                <Tooltip animationEasing="ease-out" animationDuration={700} contentStyle={{ background: "var(--color-popover)", border: "1px solid var(--color-border)", borderRadius: 10, fontSize: 14, boxShadow: "var(--shadow-elevated)" }} />
-                <Legend iconType="circle" wrapperStyle={{ fontSize: 14, paddingTop: 8 }} />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </ChartCard>
-
-        <ChartCard title="Status Breakdown">
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie animationEasing="ease-out" animationDuration={800} data={status.data ?? []} dataKey="value" nameKey="name" innerRadius={40} outerRadius={82} paddingAngle={2} stroke="var(--color-card)" strokeWidth={2}>
-                  {(status.data ?? []).map((entry, i) => {
-                    let color = "var(--color-chart-1)";
-                    if (entry.name === "Completed") color = "var(--color-success)";
-                    else if (entry.name === "Pending") color = "var(--color-warning)";
-                    else if (entry.name === "Processing") color = "var(--color-info)";
-                    else if (entry.name === "Overdue") color = "var(--color-destructive)";
-                    else if (entry.name === "Needs Review") color = "var(--color-primary)";
-                    return <Cell key={i} fill={color} />;
-                  })}
-                </Pie>
-                <Tooltip animationEasing="ease-out" animationDuration={700} contentStyle={{ background: "var(--color-popover)", border: "1px solid var(--color-border)", borderRadius: 10, fontSize: 14, boxShadow: "var(--shadow-elevated)" }} />
-                <Legend iconType="circle" wrapperStyle={{ fontSize: 14, paddingTop: 8 }} />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </ChartCard>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <ChartCard title="Department Breakdown">
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={dept.data ?? []} margin={{ top: 8, right: 8, left: -16, bottom: 0 }} barCategoryGap="30%">
-                  <defs>
-                    <linearGradient id="barG" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="var(--color-chart-1)" stopOpacity={1} />
-                      <stop offset="100%" stopColor="var(--color-chart-1)" stopOpacity={0.6} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="var(--color-border)" opacity={0.6} />
-                  <XAxis dataKey="name" tick={{ fontSize: 13 }} tickLine={false} axisLine={false} stroke="var(--color-muted-foreground)" />
-                  <YAxis tick={{ fontSize: 13 }} tickLine={false} axisLine={false} stroke="var(--color-muted-foreground)" width={36} />
-                  <Tooltip animationEasing="ease-out" animationDuration={700} cursor={{ fill: "var(--color-muted)", opacity: 0.4 }} contentStyle={{ background: "var(--color-popover)", border: "1px solid var(--color-border)", borderRadius: 10, fontSize: 14, boxShadow: "var(--shadow-elevated)" }} />
-                    <Bar animationEasing="ease-out" animationDuration={900} dataKey="value" fill="url(#barG)" radius={[8, 8, 0, 0]} maxBarSize={48} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </ChartCard>
+    <div className="space-y-6 max-w-[1600px] mx-auto pb-10">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border/40 pb-5">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">Inbox Overview</h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            Monitoring inbound traffic and routing automation accuracy.
+          </p>
         </div>
+        <div className="flex items-center gap-3">
+          <div className="flex flex-col text-right">
+            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Pending Action</span>
+            <span className="text-xl font-bold tabular-nums text-foreground">{s.pending}</span>
+          </div>
+          <div className="h-10 w-px bg-border/60 mx-1" />
+          <div className="flex flex-col text-right">
+            <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Routing Accuracy</span>
+            <span className="text-xl font-bold tabular-nums text-foreground">{Math.round(s.avgConfidence * 100)}%</span>
+          </div>
+        </div>
+      </div>
 
-        <Card className="border-border/60 shadow-[var(--shadow-soft)]">
+      {/* KPI Grid */}
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" aria-label="Key Performance Indicators">
+        <KpiCard label="Total Volume" value={s.total} icon={Inbox} tone="default" trend="+12% vs last week" />
+        <KpiCard label="Completed" value={s.completed} icon={CheckCircle2} tone="default" trend="Processed successfully" />
+        <KpiCard label="Overdue" value={s.overdue} icon={Clock} tone="default" />
+        <KpiCard label="Needs Review" value={s.needsReview} icon={ShieldAlert} tone="default" />
+      </div>
+
+      {/* Charts Grid */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        <Card className="lg:col-span-2 border-border/40 shadow-sm rounded-xl">
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-base font-semibold">
-              <Activity className="h-4 w-4" /> Recent Activity
-            </CardTitle>
+            <CardTitle className="text-sm font-semibold tracking-tight text-foreground">Inbound Traffic Trend</CardTitle>
+            <CardDescription className="text-xs">Volume over the last 14 days vs processed items.</CardDescription>
           </CardHeader>
           <CardContent>
-            <ul className="space-y-3">
-              {(activity.data ?? []).map(a => (
-                <li key={a.id} className="flex gap-3 text-sm">
-                  <div className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary" />
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm">{a.message}</p>
-                    <p className="text-sm text-muted-foreground mt-0.5">{formatDistanceToNow(new Date(a.timestamp), { addSuffix: true })}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <div className="h-[280px] mt-4 w-full">
+              <Line data={trendData} options={chartOptionsBase as any} />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border/40 shadow-sm rounded-xl">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-semibold tracking-tight text-foreground">Customer Mood</CardTitle>
+            <CardDescription className="text-xs">Aggregated sentiment analysis.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[280px] mt-4 w-full flex items-center justify-center">
+              <div className="h-[220px] w-full">
+                <Doughnut 
+                  data={sentimentData} 
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: "70%",
+                    plugins: {
+                      legend: { position: "bottom", labels: { usePointStyle: true, boxWidth: 6, font: { size: 12 } } },
+                      tooltip: chartOptionsBase.plugins.tooltip
+                    }
+                  } as any} 
+                />
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Card className="border-border/60 shadow-[var(--shadow-soft)]">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-base font-semibold">Recent Emails</CardTitle>
-            <Link to="/emails" className="flex items-center gap-1 text-sm font-medium text-primary hover:underline">
-              View all <ArrowUpRight className="h-3.5 w-3.5" />
-            </Link>
+      <div className="grid gap-6 lg:grid-cols-3">
+        <Card className="lg:col-span-2 border-border/40 shadow-sm rounded-xl">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-semibold tracking-tight text-foreground">Routing Distribution</CardTitle>
+            <CardDescription className="text-xs">Volume segmented by target department.</CardDescription>
           </CardHeader>
           <CardContent>
+            <div className="h-[240px] mt-4 w-full">
+              <Bar 
+                data={deptData} 
+                options={{
+                  ...chartOptionsBase,
+                  scales: {
+                    x: { ...chartOptionsBase.scales.x, grid: { display: false } },
+                    y: { ...chartOptionsBase.scales.y, beginAtZero: true }
+                  }
+                } as any} 
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border/40 shadow-sm rounded-xl flex flex-col">
+          <CardHeader className="pb-2 border-b border-border/40">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold tracking-tight">
+              <Activity className="h-4 w-4 text-muted-foreground" /> System Activity
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-0 flex-1 overflow-y-auto max-h-[260px]">
+            <div className="divide-y divide-border/30">
+              {(activity.data ?? []).map(a => (
+                <div key={a.id} className="p-4 hover:bg-muted/30 transition-colors">
+                  <div className="flex gap-3">
+                    <div className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-400" />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium text-foreground">{a.message}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5 font-mono">{formatDistanceToNow(new Date(a.timestamp), { addSuffix: true })}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid gap-6 grid-cols-1">
+        <Card className="border-border/40 shadow-sm rounded-xl">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 border-b border-border/40">
+            <div>
+              <CardTitle className="text-sm font-semibold tracking-tight text-foreground">Recent Communications</CardTitle>
+              <CardDescription className="text-xs mt-1">Latest inbound items pending or processed.</CardDescription>
+            </div>
+            <Link to="/emails" className="text-xs font-medium text-slate-500 hover:text-slate-900 transition-colors">
+              View All &rarr;
+            </Link>
+          </CardHeader>
+          <CardContent className="p-0">
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>Sender</TableHead>
-                  <TableHead>Subject</TableHead>
-                  <TableHead>Dept</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Sentiment</TableHead>
+                <TableRow className="hover:bg-transparent">
+                  <TableHead className="h-10 text-xs">Sender</TableHead>
+                  <TableHead className="h-10 text-xs">Subject</TableHead>
+                  <TableHead className="h-10 text-xs">Mood</TableHead>
+                  <TableHead className="h-10 text-xs text-right">Status</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {(emails.data ?? []).map(e => (
-                  <TableRow key={e.id} className="cursor-pointer" onClick={() => navigate({ to: "/emails/$id", params: { id: e.id } })} tabIndex={0} aria-label={`Email from ${e.sender} about ${e.subject}`}>
-                    <TableCell className="font-medium text-sm">{e.sender}</TableCell>
-                    <TableCell className="max-w-[180px] truncate text-sm">{e.subject}</TableCell>
-                    <TableCell><DepartmentBadge department={e.department} /></TableCell>
-                    <TableCell><StatusBadge status={e.status} /></TableCell>
-                    <TableCell><SentimentBadge sentiment={e.ai.sentiment} /></TableCell>
+                  <TableRow key={e.id} className="cursor-pointer transition-colors hover:bg-muted/40" onClick={() => navigate({ to: "/emails/$id", params: { id: e.id } })}>
+                    <TableCell className="py-2.5">
+                      <span className="font-medium text-sm text-foreground">{e.sender}</span>
+                    </TableCell>
+                    <TableCell className="py-2.5 max-w-[160px] truncate text-sm text-muted-foreground">{e.subject}</TableCell>
+                    <TableCell className="py-2.5"><SentimentBadge sentiment={e.ai.sentiment} /></TableCell>
+                    <TableCell className="py-2.5 text-right"><StatusBadge status={e.status} /></TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -204,30 +292,36 @@ function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-border/60 shadow-[var(--shadow-soft)]">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-base font-semibold">Recent ClickUp Tasks</CardTitle>
-            <Link to="/clickup" className="flex items-center gap-1 text-sm font-medium text-primary hover:underline">
-              View all <ArrowUpRight className="h-3.5 w-3.5" />
+        <Card className="border-border/40 shadow-sm rounded-xl">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 border-b border-border/40">
+            <div>
+              <CardTitle className="text-sm font-semibold tracking-tight text-foreground">ClickUp Synchronization</CardTitle>
+              <CardDescription className="text-xs mt-1">Tasks automatically created in the workspace.</CardDescription>
+            </div>
+            <Link to="/clickup" className="text-xs font-medium text-slate-500 hover:text-slate-900 transition-colors">
+              View All &rarr;
             </Link>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>Task ID</TableHead>
-                  <TableHead>Folder</TableHead>
-                  <TableHead>Subject</TableHead>
-                  <TableHead>Status</TableHead>
+                <TableRow className="hover:bg-transparent">
+                  <TableHead className="h-10 text-xs">Reference</TableHead>
+                  <TableHead className="h-10 text-xs">Context</TableHead>
+                  <TableHead className="h-10 text-xs text-right">Status</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {(tasks.data ?? []).map(t => (
-                  <TableRow key={t.id} tabIndex={0} aria-label={`ClickUp Task ${t.taskId}`}>
-                    <TableCell className="font-mono text-sm">{t.taskId}</TableCell>
-                    <TableCell className="text-sm">{t.folder}</TableCell>
-                    <TableCell className="max-w-[180px] truncate text-sm">{t.emailSubject}</TableCell>
-                    <TableCell><TaskStatusBadge status={t.status} /></TableCell>
+                  <TableRow key={t.id} className="transition-colors hover:bg-muted/40">
+                    <TableCell className="py-2.5 font-mono text-xs font-medium text-slate-600">{t.taskId}</TableCell>
+                    <TableCell className="py-2.5">
+                      <div className="flex flex-col">
+                        <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">{t.folder}</span>
+                        <span className="max-w-[180px] truncate text-sm text-foreground mt-0.5">{t.emailSubject}</span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="py-2.5 text-right"><TaskStatusBadge status={t.status} /></TableCell>
                   </TableRow>
                 ))}
               </TableBody>

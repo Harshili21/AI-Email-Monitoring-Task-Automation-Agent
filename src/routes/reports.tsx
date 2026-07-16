@@ -8,10 +8,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { FileText, FileDown, Sparkles, RefreshCw, Loader2, TrendingUp, CheckCircle, Clock, Brain } from "lucide-react";
 import {
-  ResponsiveContainer, LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
-  XAxis, YAxis, CartesianGrid, Tooltip, Legend, Area, AreaChart,
-} from "recharts";
-import {
   getDailyVolume, getWeeklyTrend, getDepartmentPerformance,
   getPendingVsCompleted, getSentimentReport, exportReport, generateReport,
 } from "@/services/reportService";
@@ -19,13 +15,62 @@ import type { ReportFilters } from "@/services/reportService";
 import { toast } from "sonner";
 import { useState } from "react";
 
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from "chart.js";
+import { Line, Bar, Doughnut } from "react-chartjs-2";
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Title, Tooltip, Legend, Filler);
+
 export const Route = createFileRoute("/reports")({
   head: () => ({ meta: [{ title: "Reports — MailPilot" }] }),
   component: ReportsPage,
 });
 
-const COLORS = ["var(--color-chart-1)", "var(--color-chart-2)", "var(--color-chart-3)", "var(--color-chart-4)", "var(--color-chart-5)"];
 const DEPTS = ["all", "Sales", "Support", "Finance", "Operations", "HR", "Legal", "Other"];
+
+// Professional enterprise color palette
+const COLORS = {
+  primary: "#0f172a", // Slate 900
+  secondary: "#64748b", // Slate 500
+  accent: "#0284c7", // Sky 600
+  success: "#059669", // Emerald 600
+  warning: "#d97706", // Amber 600
+  destructive: "#dc2626", // Red 600
+  muted: "#e2e8f0" // Slate 200
+};
+
+const chartOptionsBase = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { position: "top" as const, labels: { usePointStyle: true, boxWidth: 6, font: { size: 12 } } },
+    tooltip: {
+      backgroundColor: "rgba(255, 255, 255, 0.95)",
+      titleColor: "#0f172a",
+      bodyColor: "#475569",
+      borderColor: "#e2e8f0",
+      borderWidth: 1,
+      padding: 12,
+      boxPadding: 4,
+      usePointStyle: true,
+    },
+  },
+  scales: {
+    x: { grid: { display: false }, ticks: { color: "#64748b", font: { size: 12 } }, border: { display: false } },
+    y: { grid: { color: "#e2e8f0", drawTicks: false, borderDash: [4, 4] }, ticks: { color: "#64748b", font: { size: 12 }, maxTicksLimit: 6 }, border: { display: false } },
+  }
+};
 
 function ReportsPage() {
   const queryClient = useQueryClient();
@@ -85,27 +130,105 @@ function ReportsPage() {
     });
   };
 
+  const dailyData = {
+    labels: (daily.data ?? []).map(d => d.date),
+    datasets: [{
+      label: "Emails",
+      data: (daily.data ?? []).map(d => d.emails),
+      borderColor: COLORS.primary,
+      backgroundColor: `${COLORS.primary}1A`,
+      borderWidth: 2,
+      fill: true,
+      tension: 0.4,
+      pointRadius: 0,
+      pointHoverRadius: 4,
+    }]
+  };
+
+  const weeklyData = {
+    labels: (weekly.data ?? []).map(d => d.date),
+    datasets: [
+      {
+        label: "Total Volume",
+        data: (weekly.data ?? []).map(d => d.emails),
+        borderColor: COLORS.primary,
+        borderWidth: 2,
+        tension: 0.4,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+      },
+      {
+        label: "Processed",
+        data: (weekly.data ?? []).map(d => d.completed),
+        borderColor: COLORS.secondary,
+        borderWidth: 2,
+        tension: 0.4,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+      }
+    ]
+  };
+
+  const perfData = {
+    labels: (perf.data ?? []).map(d => d.name),
+    datasets: [
+      {
+        label: "Completed",
+        data: (perf.data ?? []).map(d => d.completed),
+        backgroundColor: COLORS.success,
+        borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 4, bottomRight: 4 },
+      },
+      {
+        label: "Pending",
+        data: (perf.data ?? []).map(d => d.pending),
+        backgroundColor: COLORS.warning,
+        borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 },
+      }
+    ]
+  };
+
+  const pvcData = {
+    labels: (pvc.data ?? []).map(d => d.name),
+    datasets: [{
+      data: (pvc.data ?? []).map(d => d.value),
+      backgroundColor: (pvc.data ?? []).map(d => 
+        d.name === "Completed" ? COLORS.success : COLORS.warning
+      ),
+      borderWidth: 0,
+    }]
+  };
+
+  const sentimentData = {
+    labels: (sent.data ?? []).map(d => d.name),
+    datasets: [{
+      data: (sent.data ?? []).map(d => d.value),
+      backgroundColor: (sent.data ?? []).map(d => 
+        d.name === "Positive" ? COLORS.success : d.name === "Negative" ? COLORS.destructive : COLORS.secondary
+      ),
+      borderWidth: 0,
+    }]
+  };
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-[1600px] mx-auto pb-10">
       <PageHeader
-        title="Reports"
-        description="Insights on email volume, performance, and sentiment"
-        breadcrumbs={[{ label: "Home", to: "/" }, { label: "Reports" }]}
+        title="Reports & Analytics"
+        description="Data-driven insights on email volume, routing performance, and client sentiment."
         actions={
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={refreshAll}>
-              <RefreshCw className="mr-2 h-4 w-4" />Refresh
+          <div className="flex flex-wrap items-center gap-2 mt-4 sm:mt-0">
+            <Button variant="outline" size="sm" onClick={refreshAll} className="h-8 text-xs font-medium border-border/60">
+              <RefreshCw className="mr-2 h-3.5 w-3.5" />Refresh
             </Button>
-            <Button variant="outline" size="sm" disabled={exporting === "csv"} onClick={() => doExport("csv")}>
-              {exporting === "csv" ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FileDown className="mr-2 h-4 w-4" />}
+            <Button variant="outline" size="sm" disabled={exporting === "csv"} onClick={() => doExport("csv")} className="h-8 text-xs font-medium border-border/60">
+              {exporting === "csv" ? <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" /> : <FileDown className="mr-2 h-3.5 w-3.5" />}
               CSV
             </Button>
-            <Button variant="outline" size="sm" disabled={exporting === "pdf"} onClick={() => doExport("pdf")}>
-              {exporting === "pdf" ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FileText className="mr-2 h-4 w-4" />}
+            <Button variant="outline" size="sm" disabled={exporting === "pdf"} onClick={() => doExport("pdf")} className="h-8 text-xs font-medium border-border/60">
+              {exporting === "pdf" ? <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" /> : <FileText className="mr-2 h-3.5 w-3.5" />}
               PDF
             </Button>
-            <Button size="sm" disabled={generating} onClick={doGenerate}>
-              {generating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
+            <Button size="sm" disabled={generating} onClick={doGenerate} className="h-8 text-xs font-medium bg-slate-900 text-white hover:bg-slate-800">
+              {generating ? <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" /> : <Sparkles className="mr-2 h-3.5 w-3.5" />}
               Generate
             </Button>
           </div>
@@ -113,72 +236,72 @@ function ReportsPage() {
       />
 
       {/* Filters */}
-      <Card className="border-border/60 shadow-[var(--shadow-soft)]">
+      <Card className="border-border/40 shadow-sm rounded-xl bg-muted/10">
         <CardContent className="flex flex-wrap items-center gap-4 py-4">
           <div className="flex items-center gap-2">
-            <label className="text-sm font-medium text-muted-foreground whitespace-nowrap">From:</label>
+            <label className="text-xs font-medium text-slate-600 whitespace-nowrap uppercase tracking-wider">From</label>
             <Input
               type="date"
-              className="h-8 w-[160px]"
+              className="h-8 w-[160px] text-sm border-slate-300"
               value={filters.from ?? ""}
               onChange={e => updateFilter("from", e.target.value)}
             />
           </div>
           <div className="flex items-center gap-2">
-            <label className="text-sm font-medium text-muted-foreground whitespace-nowrap">To:</label>
+            <label className="text-xs font-medium text-slate-600 whitespace-nowrap uppercase tracking-wider">To</label>
             <Input
               type="date"
-              className="h-8 w-[160px]"
+              className="h-8 w-[160px] text-sm border-slate-300"
               value={filters.to ?? ""}
               onChange={e => updateFilter("to", e.target.value)}
             />
           </div>
           <div className="flex items-center gap-2">
-            <label className="text-sm font-medium text-muted-foreground whitespace-nowrap">Department:</label>
+            <label className="text-xs font-medium text-slate-600 whitespace-nowrap uppercase tracking-wider">Dept</label>
             <Select value={filters.department ?? "all"} onValueChange={v => updateFilter("department", v)}>
-              <SelectTrigger className="h-8 w-[140px]"><SelectValue /></SelectTrigger>
+              <SelectTrigger className="h-8 w-[150px] text-sm border-slate-300"><SelectValue /></SelectTrigger>
               <SelectContent>{DEPTS.map(d => <SelectItem key={d} value={d}>{d === "all" ? "All Departments" : d}</SelectItem>)}</SelectContent>
             </Select>
           </div>
           {(filters.from || filters.to || filters.department) && (
-            <Button variant="ghost" size="sm" onClick={() => setFilters({})}>Clear filters</Button>
+            <Button variant="ghost" size="sm" className="h-8 text-xs font-medium text-slate-500 hover:text-slate-900" onClick={() => setFilters({})}>Clear filters</Button>
           )}
         </CardContent>
       </Card>
 
       {/* Generated Report Summary */}
       {reportSummary && (
-        <Card className="border-primary/30 bg-primary/5 shadow-[var(--shadow-soft)]">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Sparkles className="h-4 w-4 text-primary" />
+        <Card className="border-blue-200 bg-blue-50/50 shadow-sm rounded-xl">
+          <CardHeader className="pb-3 border-b border-blue-100">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+              <Sparkles className="h-4 w-4 text-blue-600" />
               Generated Report Summary
-              <Button variant="ghost" size="sm" className="ml-auto text-xs" onClick={() => setReportSummary(null)}>Dismiss</Button>
+              <Button variant="ghost" size="sm" className="ml-auto text-xs text-slate-500 hover:text-slate-900 h-6 px-2" onClick={() => setReportSummary(null)}>Dismiss</Button>
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <SummaryItem icon={<TrendingUp className="h-4 w-4" />} label="Total Emails" value={reportSummary.totalEmails} />
-              <SummaryItem icon={<CheckCircle className="h-4 w-4 text-success" />} label="Completion Rate" value={`${reportSummary.completionRate}%`} />
-              <SummaryItem icon={<Brain className="h-4 w-4 text-info" />} label="Avg Confidence" value={`${reportSummary.avgConfidence}%`} />
-              <SummaryItem icon={<Clock className="h-4 w-4 text-warning" />} label="Needs Review" value={reportSummary.needsReview} />
+              <SummaryItem icon={<TrendingUp className="h-4 w-4 text-slate-700" />} label="Total Emails" value={reportSummary.totalEmails} />
+              <SummaryItem icon={<CheckCircle className="h-4 w-4 text-emerald-600" />} label="Completion Rate" value={`${reportSummary.completionRate}%`} />
+              <SummaryItem icon={<Brain className="h-4 w-4 text-sky-600" />} label="Avg Confidence" value={`${reportSummary.avgConfidence}%`} />
+              <SummaryItem icon={<Clock className="h-4 w-4 text-amber-600" />} label="Needs Review" value={reportSummary.needsReview} />
             </div>
-            <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-              <div className="flex items-center justify-between rounded-md bg-background/60 px-3 py-2">
-                <span className="text-muted-foreground">Completed</span>
-                <span className="font-semibold">{reportSummary.completed}</span>
+            <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+              <div className="flex items-center justify-between rounded-md bg-white border border-slate-200 px-3 py-2 shadow-sm">
+                <span className="text-slate-500 font-medium text-xs uppercase tracking-wider">Completed</span>
+                <span className="font-semibold text-slate-900">{reportSummary.completed}</span>
               </div>
-              <div className="flex items-center justify-between rounded-md bg-background/60 px-3 py-2">
-                <span className="text-muted-foreground">Pending</span>
-                <span className="font-semibold">{reportSummary.pending}</span>
+              <div className="flex items-center justify-between rounded-md bg-white border border-slate-200 px-3 py-2 shadow-sm">
+                <span className="text-slate-500 font-medium text-xs uppercase tracking-wider">Pending</span>
+                <span className="font-semibold text-slate-900">{reportSummary.pending}</span>
               </div>
-              <div className="flex items-center justify-between rounded-md bg-background/60 px-3 py-2">
-                <span className="text-muted-foreground">Top Dept</span>
-                <span className="font-semibold">{reportSummary.topDepartment} ({reportSummary.topDepartmentCount})</span>
+              <div className="flex items-center justify-between rounded-md bg-white border border-slate-200 px-3 py-2 shadow-sm">
+                <span className="text-slate-500 font-medium text-xs uppercase tracking-wider">Top Dept</span>
+                <span className="font-semibold text-slate-900">{reportSummary.topDepartment}</span>
               </div>
-              <div className="flex items-center justify-between rounded-md bg-background/60 px-3 py-2">
-                <span className="text-muted-foreground">Tasks Created</span>
-                <span className="font-semibold">{reportSummary.tasksCreated}</span>
+              <div className="flex items-center justify-between rounded-md bg-white border border-slate-200 px-3 py-2 shadow-sm">
+                <span className="text-slate-500 font-medium text-xs uppercase tracking-wider">Syncs</span>
+                <span className="font-semibold text-slate-900">{reportSummary.tasksCreated}</span>
               </div>
             </div>
           </CardContent>
@@ -186,92 +309,70 @@ function ReportsPage() {
       )}
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <ChartCard title="Daily Email Volume">
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={daily.data ?? []} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="rd" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="var(--color-chart-1)" stopOpacity={0.35} />
-                    <stop offset="100%" stopColor="var(--color-chart-1)" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="var(--color-border)" opacity={0.6} />
-                <XAxis dataKey="date" tick={{ fontSize: 13 }} tickLine={false} axisLine={false} stroke="var(--color-muted-foreground)" />
-                <YAxis tick={{ fontSize: 13 }} tickLine={false} axisLine={false} stroke="var(--color-muted-foreground)" width={36} />
-                <Tooltip cursor={{ stroke: "var(--color-border)" }} contentStyle={{ background: "var(--color-popover)", border: "1px solid var(--color-border)", borderRadius: 10, fontSize: 14, boxShadow: "var(--shadow-elevated)" }} />
-                <Area type="monotone" dataKey="emails" stroke="var(--color-chart-1)" fill="url(#rd)" strokeWidth={2.25} activeDot={{ r: 4, strokeWidth: 2 }} />
-              </AreaChart>
-            </ResponsiveContainer>
+        <ChartCard title="Daily Email Volume" className="border-border/40 shadow-sm rounded-xl">
+          <div className="h-[280px] w-full">
+            <Line data={dailyData} options={{...chartOptionsBase, plugins: {...chartOptionsBase.plugins, legend: { display: false }}} as any} />
           </div>
         </ChartCard>
 
-        <ChartCard title="Weekly Trend">
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={weekly.data ?? []} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="var(--color-border)" opacity={0.6} />
-                <XAxis dataKey="date" tick={{ fontSize: 13 }} tickLine={false} axisLine={false} stroke="var(--color-muted-foreground)" />
-                <YAxis tick={{ fontSize: 13 }} tickLine={false} axisLine={false} stroke="var(--color-muted-foreground)" width={36} />
-                <Tooltip cursor={{ stroke: "var(--color-border)" }} contentStyle={{ background: "var(--color-popover)", border: "1px solid var(--color-border)", borderRadius: 10, fontSize: 14, boxShadow: "var(--shadow-elevated)" }} />
-                <Legend iconType="circle" wrapperStyle={{ fontSize: 14, paddingTop: 8 }} />
-                <Line type="monotone" dataKey="emails" stroke="var(--color-chart-1)" strokeWidth={2.25} dot={false} activeDot={{ r: 4 }} />
-                <Line type="monotone" dataKey="completed" stroke="var(--color-chart-2)" strokeWidth={2.25} dot={false} activeDot={{ r: 4 }} />
-              </LineChart>
-            </ResponsiveContainer>
+        <ChartCard title="Weekly Trend" className="border-border/40 shadow-sm rounded-xl">
+          <div className="h-[280px] w-full">
+            <Line data={weeklyData} options={chartOptionsBase as any} />
           </div>
         </ChartCard>
 
-        <ChartCard title="Department Performance">
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={perf.data ?? []} margin={{ top: 8, right: 8, left: -16, bottom: 0 }} barCategoryGap="28%">
-                <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="var(--color-border)" opacity={0.6} />
-                <XAxis dataKey="name" tick={{ fontSize: 13 }} tickLine={false} axisLine={false} stroke="var(--color-muted-foreground)" />
-                <YAxis tick={{ fontSize: 13 }} tickLine={false} axisLine={false} stroke="var(--color-muted-foreground)" width={36} />
-                <Tooltip cursor={{ fill: "var(--color-muted)", opacity: 0.4 }} contentStyle={{ background: "var(--color-popover)", border: "1px solid var(--color-border)", borderRadius: 10, fontSize: 14, boxShadow: "var(--shadow-elevated)" }} />
-                <Legend iconType="circle" wrapperStyle={{ fontSize: 14, paddingTop: 8 }} />
-                <Bar dataKey="completed" stackId="a" fill="var(--color-success)" />
-                <Bar dataKey="pending" stackId="a" fill="var(--color-warning)" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+        <ChartCard title="Department Performance" className="border-border/40 shadow-sm rounded-xl lg:col-span-2">
+          <div className="h-[300px] w-full">
+            <Bar 
+              data={perfData} 
+              options={{
+                ...chartOptionsBase,
+                scales: {
+                  x: { ...chartOptionsBase.scales.x, grid: { display: false }, stacked: true },
+                  y: { ...chartOptionsBase.scales.y, beginAtZero: true, stacked: true }
+                }
+              } as any} 
+            />
           </div>
         </ChartCard>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <ChartCard title="Pending vs Completed">
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={pvc.data ?? []} dataKey="value" nameKey="name" innerRadius={48} outerRadius={78} paddingAngle={3} stroke="var(--color-card)" strokeWidth={2}>
-                    {(pvc.data ?? []).map((entry, i) => {
-                      const color = entry.name === "Completed" ? "var(--color-success)" : "var(--color-warning)";
-                      return <Cell key={i} fill={color} />;
-                    })}
-                  </Pie>
-                  <Tooltip contentStyle={{ background: "var(--color-popover)", border: "1px solid var(--color-border)", borderRadius: 10, fontSize: 14, boxShadow: "var(--shadow-elevated)" }} />
-                  <Legend iconType="circle" wrapperStyle={{ fontSize: 14, paddingTop: 8 }} />
-                </PieChart>
-              </ResponsiveContainer>
+        <ChartCard title="Pending vs Completed" className="border-border/40 shadow-sm rounded-xl">
+          <div className="h-[280px] w-full flex items-center justify-center">
+            <div className="h-[220px] w-full">
+              <Doughnut 
+                data={pvcData} 
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  cutout: "65%",
+                  plugins: {
+                    legend: { position: "bottom", labels: { usePointStyle: true, boxWidth: 6, font: { size: 12 } } },
+                    tooltip: chartOptionsBase.plugins.tooltip
+                  }
+                } as any} 
+              />
             </div>
-          </ChartCard>
-          <ChartCard title="Sentiment">
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={sent.data ?? []} dataKey="value" nameKey="name" innerRadius={40} outerRadius={78} paddingAngle={2} stroke="var(--color-card)" strokeWidth={2}>
-                    {(sent.data ?? []).map((entry, i) => {
-                      const color = entry.name === "Positive" ? "var(--color-success)" : entry.name === "Negative" ? "var(--color-destructive)" : "oklch(0.65 0.01 240)";
-                      return <Cell key={i} fill={color} />;
-                    })}
-                  </Pie>
-                  <Tooltip contentStyle={{ background: "var(--color-popover)", border: "1px solid var(--color-border)", borderRadius: 10, fontSize: 14, boxShadow: "var(--shadow-elevated)" }} />
-                  <Legend iconType="circle" wrapperStyle={{ fontSize: 14, paddingTop: 8 }} />
-                </PieChart>
-              </ResponsiveContainer>
+          </div>
+        </ChartCard>
+
+        <ChartCard title="Sentiment Analysis" className="border-border/40 shadow-sm rounded-xl">
+          <div className="h-[280px] w-full flex items-center justify-center">
+            <div className="h-[220px] w-full">
+              <Doughnut 
+                data={sentimentData} 
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  cutout: "65%",
+                  plugins: {
+                    legend: { position: "bottom", labels: { usePointStyle: true, boxWidth: 6, font: { size: 12 } } },
+                    tooltip: chartOptionsBase.plugins.tooltip
+                  }
+                } as any} 
+              />
             </div>
-          </ChartCard>
-        </div>
+          </div>
+        </ChartCard>
       </div>
     </div>
   );
@@ -279,11 +380,11 @@ function ReportsPage() {
 
 function SummaryItem({ icon, label, value }: { icon: React.ReactNode; label: string; value: string | number }) {
   return (
-    <div className="flex items-center gap-3 rounded-lg bg-background/60 px-4 py-3">
-      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">{icon}</div>
+    <div className="flex items-center gap-3 rounded-lg bg-white border border-slate-200 shadow-sm px-4 py-3">
+      <div className="flex h-8 w-8 items-center justify-center rounded-md bg-slate-100">{icon}</div>
       <div>
-        <div className="text-lg font-bold tabular-nums">{value}</div>
-        <div className="text-xs text-muted-foreground">{label}</div>
+        <div className="text-lg font-bold tabular-nums text-slate-900">{value}</div>
+        <div className="text-xs text-slate-500 font-medium tracking-wide uppercase">{label}</div>
       </div>
     </div>
   );

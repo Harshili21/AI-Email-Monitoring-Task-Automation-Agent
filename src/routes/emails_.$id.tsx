@@ -27,7 +27,7 @@ function EmailDetailPage() {
   const { id } = Route.useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { data: email, isLoading, refetch } = useQuery({ queryKey: ["email", id], queryFn: () => getEmail(id) });
+  const { data: email, isLoading, refetch } = useQuery({ queryKey: ["email", id], queryFn: () => getEmail({ data: id }) });
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
 
   const invalidateAll = () => {
@@ -62,7 +62,7 @@ function EmailDetailPage() {
               size="sm"
               disabled={!!loadingAction}
               onClick={() => withLoading("reject", async () => {
-                await rejectEmail(email.id);
+                await rejectEmail({ data: email.id });
                 toast.error("Email rejected");
                 invalidateAll();
                 refetch();
@@ -76,7 +76,7 @@ function EmailDetailPage() {
               size="sm"
               disabled={!!loadingAction}
               onClick={() => withLoading("task", async () => {
-                const result = await createTaskFromEmail(email.id);
+                const result = await createTaskFromEmail({ data: email.id });
                 if (result.ok) {
                   toast.success(`ClickUp task ${result.taskId} created`);
                 } else {
@@ -93,7 +93,7 @@ function EmailDetailPage() {
               size="sm"
               disabled={!!loadingAction}
               onClick={() => withLoading("approve", async () => {
-                await approveEmail(email.id);
+                await approveEmail({ data: email.id });
                 toast.success("Email approved");
                 invalidateAll();
                 refetch();
@@ -211,7 +211,7 @@ function EmailDetailPage() {
                     disabled={!!loadingAction}
                     onValueChange={async v => {
                       setLoadingAction("reclassify");
-                      await reclassifyEmail(email.id, v);
+                      await reclassifyEmail({ data: { id: email.id, department: v } });
                       toast.success(`Reclassified to ${v}`);
                       invalidateAll();
                       refetch();

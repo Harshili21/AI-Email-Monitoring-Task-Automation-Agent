@@ -25,7 +25,7 @@ function ClickUpPage() {
   const handleRetry = async (taskId: string) => {
     setRetrying(prev => ({ ...prev, [taskId]: true }));
     try {
-      const result = await retryTask(taskId);
+      const result = await retryTask({ data: taskId });
       if (result.ok) {
         toast.success(`Task ${taskId} has been reset and will be retried`);
       } else {

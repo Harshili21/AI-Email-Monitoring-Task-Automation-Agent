@@ -157,27 +157,9 @@
     font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
   }
   body {
-    background-image:
-      radial-gradient(1200px 600px at 8% -10%, oklch(0.55 0.20 265 / 0.10), transparent 60%),
-      radial-gradient(900px 500px at 100% 0%, oklch(0.62 0.20 305 / 0.08), transparent 55%),
-      radial-gradient(700px 500px at 50% 110%, oklch(0.68 0.15 165 / 0.06), transparent 60%);
     background-attachment: fixed;
   }
   .dark body {
-    background-image:
-      radial-gradient(1200px 600px at 8% -10%, oklch(0.70 0.19 265 / 0.14), transparent 60%),
-      radial-gradient(900px 500px at 100% 0%, oklch(0.72 0.18 305 / 0.10), transparent 55%),
-      radial-gradient(700px 500px at 50% 110%, oklch(0.74 0.15 165 / 0.08), transparent 60%);
-  }
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background-image: radial-gradient(oklch(0.55 0.02 260 / 0.05) 1px, transparent 1px);
-    background-size: 22px 22px;
-    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
   }
 
   h1, h2, h3, h4 {
@@ -229,8 +211,6 @@
 .kpi-card .card-content, .kpi-card .p-5 { padding: 1.25rem; }
 [data-chart] .recharts-legend-item-text { color: var(--color-muted-foreground); }
 
-/* Chip glow for badges */
-.chip-glow { box-shadow: 0 6px 18px -8px color-mix(in oklab, var(--color-primary) 30%, transparent 70%); }
 
 
 /* Recharts polish */

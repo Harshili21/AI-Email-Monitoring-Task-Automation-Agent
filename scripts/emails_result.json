@@ -1,0 +1,317 @@
+[
+  {
+    "Subject": "Security alert",
+    "Sender": "Google <no-reply@accounts.google.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 16:26:11 GMT",
+    "Flags": [],
+    "Body_Text": "[image: Google]\r\nPhone number added for 2-Step Verification\r\n\r\n\r\ndemo.signal.test@gmail.com\r\nCodes to sign in to your account now go to a new phone number. If you\r\ndidn't add this number, someone might be using your account. Check and\r\nsecure your account now.\r\nCheck activity\r\n<https://accounts.google.com/AccountChooser?Email=demo.signal.test@gmail.com&continue=https://myaccount.google.com/alert/nt/1784219171986?rfn%3D249%26rfnc%3D1%26eid%3D-2023695168210677957%26et%3D0>\r\nYou can also see security activity at\r\nhttps://myaccount.google.com/notifications\r\nYou received this email to let you know about important changes to your\r\nGoogle Account and services.\r\n\u00a9 2026 Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+    "Body_Html": "<!DOCTYPE html><html lang=\"en\"><head><meta name=\"format-detection\" content=\"email=no\"/><meta name=\"format-detection\" content=\"date=no\"/><style nonce=\"XhzlNXCuwuRVBQNx-_OWAQ\">.awl a {color: #FFFFFF; text-decoration: none;} .abml a {color: #000000; font-family: Roboto-Medium,Helvetica,Arial,sans-serif; font-weight: bold; text-decoration: none;} .adgl a {color: rgba(0, 0, 0, 0.87); text-decoration: none;} .afal a {color: #b0b0b0; text-decoration: none;} @media screen and (min-width: 600px) {.v2sp {padding: 6px 30px 0px;} .v2rsp {padding: 0px 10px;}} @media screen and (min-width: 600px) {.mdv2rw {padding: 40px 40px;}} </style><link href=\"//fonts.googleapis.com/css?family=Google+Sans\" rel=\"stylesheet\" type=\"text/css\" nonce=\"XhzlNXCuwuRVBQNx-_OWAQ\"/></head><body style=\"margin: 0; padding: 0;\" bgcolor=\"#FFFFFF\"><table width=\"100%\" height=\"100%\" style=\"min-width: 348px;\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" lang=\"en\"><tr height=\"32\" style=\"height: 32px;\"><td></td></tr><tr align=\"center\"><td><div itemscope itemtype=\"//schema.org/EmailMessage\"><div itemprop=\"action\" itemscope itemtype=\"//schema.org/ViewAction\"><link itemprop=\"url\" href=\"https://accounts.google.com/AccountChooser?Email=demo.signal.test@gmail.com&amp;continue=https://myaccount.google.com/alert/nt/1784219171986?rfn%3D249%26rfnc%3D1%26eid%3D-2023695168210677957%26et%3D0\"/><meta itemprop=\"name\" content=\"Review Activity\"/></div></div><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"padding-bottom: 20px; max-width: 516px; min-width: 220px;\"><tr><td width=\"8\" style=\"width: 8px;\"></td><td><div style=\"border-style: solid; border-width: thin; border-color:#dadce0; border-radius: 8px; padding: 40px 20px;\" align=\"center\" class=\"mdv2rw\"><img src=\"https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_74x24dp.png\" width=\"74\" height=\"24\" aria-hidden=\"true\" style=\"margin-bottom: 16px;\" alt=\"Google\"><div style=\"font-family: &#39;Google Sans&#39;,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;border-bottom: thin solid #dadce0; color: rgba(0,0,0,0.87); line-height: 32px; padding-bottom: 24px;text-align: center; word-break: break-word;\"><div style=\"font-size: 24px;\">Phone number added for 2-Step Verification </div><table align=\"center\" style=\"margin-top:8px;\"><tr style=\"line-height: normal;\"><td align=\"right\" style=\"padding-right:8px;\"><img width=\"20\" height=\"20\" style=\"width: 20px; height: 20px; vertical-align: sub; border-radius: 50%;;\" src=\"https://lh3.googleusercontent.com/a/ACg8ocIZP6NxAn_Hm57oGOeyvTWE2nCV98JWd0ASsxpWN9R98WyK-Q=s96-c\" alt=\"\"></td><td><a style=\"font-family: &#39;Google Sans&#39;,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color: rgba(0,0,0,0.87); font-size: 14px; line-height: 20px;\">demo.signal.test@gmail.com</a></td></tr></table> </div><div style=\"font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 14px; color: rgba(0,0,0,0.87); line-height: 20px;padding-top: 20px; text-align: left;\">Codes to sign in to your account now go to a new phone number. If you didn't add this number, someone might be using your account. Check and secure your account now.<div style=\"padding-top: 32px; text-align: center;\"><a href=\"https://accounts.google.com/AccountChooser?Email=demo.signal.test@gmail.com&amp;continue=https://myaccount.google.com/alert/nt/1784219171986?rfn%3D249%26rfnc%3D1%26eid%3D-2023695168210677957%26et%3D0\" target=\"_blank\" link-id=\"main-button-link\" style=\"font-family: &#39;Google Sans Flex&#39;,&#39;Google Sans Text&#39;,&#39;Google Sans&#39;,&#39;Noto Sans&#39;,Arial,Helvetica,sans-serif; line-height: 16px; color: #ffffff; font-weight: 500; text-decoration: none; font-size: 14px;display:inline-block;padding: 12px 24px;background-color: #0b57d0; border-radius: 9999px; min-width: 64px;\">Check activity</a></div></div><div style=\"padding-top: 20px; font-size: 12px; line-height: 16px; color: #5f6368; letter-spacing: 0.3px; text-align: center\">You can also see security activity at<br><a href=\"https://myaccount.google.com/notifications\" style=\"text-decoration: none; color: #4285F4;\" target=\"_blank\">https://myaccount.google.com/notifications</a></div></div><div style=\"text-align: left;\"><div style=\"font-family: Roboto-Regular,Helvetica,Arial,sans-serif;color: rgba(0,0,0,0.54); font-size: 11px; line-height: 18px; padding-top: 12px; text-align: center;\"><div>You received this email to let you know about important changes to your Google Account and services.</div><div style=\"direction: ltr;\">&copy; 2026 Google LLC, <a class=\"afal\" style=\"font-family: Roboto-Regular,Helvetica,Arial,sans-serif;color: rgba(0,0,0,0.54); font-size: 11px; line-height: 18px; padding-top: 12px; text-align: center;\">1600 Amphitheatre Parkway, Mountain View, CA 94043, USA</a></div></div></div></td><td width=\"8\" style=\"width: 8px;\"></td></tr></table></td></tr><tr height=\"32\" style=\"height: 32px;\"><td></td></tr></table></body></html>"
+  },
+  {
+    "Subject": "2-Step Verification turned on",
+    "Sender": "Google <no-reply@accounts.google.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 16:26:58 GMT",
+    "Flags": [],
+    "Body_Text": "[image: Google]\r\n2-Step Verification turned on\r\n\r\n\r\ndemo.signal.test@gmail.com\r\n\r\nYour Google Account demo.signal.test@gmail.com is now protected with 2-Step\r\nVerification. When you sign in on a new or untrusted device, you\u2019ll need\r\nyour second factor to verify your identity.\r\n\r\n*Don't get locked out!*\r\nYou can add a backup phone or get backup codes to use when you don\u2019t have\r\nyour second factor with you.\r\nYou can review your 2SV settings\r\n<https://accounts.google.com/AccountChooser?Email=demo.signal.test@gmail.com&continue=https://myaccount.google.com/signinoptions/twosv?rfn%3D16%26rfnc%3D1%26eid%3D-1419861250047043477%26et%3D0>\r\nto make changes.\r\nYou can also see security activity at\r\nhttps://myaccount.google.com/notifications\r\nYou received this email to let you know about important changes to your\r\nGoogle Account and services.\r\n\u00a9 2026 Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+    "Body_Html": "<!DOCTYPE html><html lang=\"en\"><head><meta name=\"format-detection\" content=\"email=no\"/><meta name=\"format-detection\" content=\"date=no\"/><style nonce=\"Kl2vlfNp6RD5Cn28niagMw\">.awl a {color: #FFFFFF; text-decoration: none;} .abml a {color: #000000; font-family: Roboto-Medium,Helvetica,Arial,sans-serif; font-weight: bold; text-decoration: none;} .adgl a {color: rgba(0, 0, 0, 0.87); text-decoration: none;} .afal a {color: #b0b0b0; text-decoration: none;} @media screen and (min-width: 600px) {.v2sp {padding: 6px 30px 0px;} .v2rsp {padding: 0px 10px;}} @media screen and (min-width: 600px) {.mdv2rw {padding: 40px 40px;}} </style><link href=\"//fonts.googleapis.com/css?family=Google+Sans\" rel=\"stylesheet\" type=\"text/css\" nonce=\"Kl2vlfNp6RD5Cn28niagMw\"/></head><body style=\"margin: 0; padding: 0;\" bgcolor=\"#FFFFFF\"><table width=\"100%\" height=\"100%\" style=\"min-width: 348px;\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" lang=\"en\"><tr height=\"32\" style=\"height: 32px;\"><td></td></tr><tr align=\"center\"><td><div itemscope itemtype=\"//schema.org/EmailMessage\"><div itemprop=\"action\" itemscope itemtype=\"//schema.org/ViewAction\"><link itemprop=\"url\" href=\"https://accounts.google.com/AccountChooser?Email=demo.signal.test@gmail.com&amp;continue=https://myaccount.google.com/signinoptions/twosv?rfn%3D16%26rfnc%3D1%26eid%3D-1419861250047043477%26et%3D0\"/><meta itemprop=\"name\" content=\"Review Activity\"/></div></div><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"padding-bottom: 20px; max-width: 516px; min-width: 220px;\"><tr><td width=\"8\" style=\"width: 8px;\"></td><td><div style=\"border-style: solid; border-width: thin; border-color:#dadce0; border-radius: 8px; padding: 40px 20px;\" align=\"center\" class=\"mdv2rw\"><img src=\"https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_74x24dp.png\" width=\"74\" height=\"24\" aria-hidden=\"true\" style=\"margin-bottom: 16px;\" alt=\"Google\"><div style=\"font-family: &#39;Google Sans&#39;,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;border-bottom: thin solid #dadce0; color: rgba(0,0,0,0.87); line-height: 32px; padding-bottom: 24px;text-align: center; word-break: break-word;\"><div style=\"font-size: 24px;\">2-Step Verification turned on </div><table align=\"center\" style=\"margin-top:8px;\"><tr style=\"line-height: normal;\"><td align=\"right\" style=\"padding-right:8px;\"><img width=\"20\" height=\"20\" style=\"width: 20px; height: 20px; vertical-align: sub; border-radius: 50%;;\" src=\"https://lh3.googleusercontent.com/a/ACg8ocIZP6NxAn_Hm57oGOeyvTWE2nCV98JWd0ASsxpWN9R98WyK-Q=s96-c\" alt=\"\"></td><td><a style=\"font-family: &#39;Google Sans&#39;,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color: rgba(0,0,0,0.87); font-size: 14px; line-height: 20px;\">demo.signal.test@gmail.com</a></td></tr></table> </div><div style=\"font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 14px; color: rgba(0,0,0,0.87); line-height: 20px;padding-top: 20px; text-align: left;\"><p>Your Google Account demo.signal.test@gmail.com is now protected with 2-Step Verification. When you sign in on a new or untrusted device, you\u2019ll need your second factor to verify your identity.</p><p><b>Don't get locked out!</b><br>You can add a backup phone or get backup codes to use when you don\u2019t have your second factor with you.</p>You can <a href=\"https://accounts.google.com/AccountChooser?Email=demo.signal.test@gmail.com&amp;continue=https://myaccount.google.com/signinoptions/twosv?rfn%3D16%26rfnc%3D1%26eid%3D-1419861250047043477%26et%3D0\" style=\"text-decoration: none; color: #4285F4;\" target=\"_blank\">review your 2SV settings</a>  to make changes.</div><div style=\"padding-top: 20px; font-size: 12px; line-height: 16px; color: #5f6368; letter-spacing: 0.3px; text-align: center\">You can also see security activity at<br><a href=\"https://myaccount.google.com/notifications\" style=\"text-decoration: none; color: #4285F4;\" target=\"_blank\">https://myaccount.google.com/notifications</a></div></div><div style=\"text-align: left;\"><div style=\"font-family: Roboto-Regular,Helvetica,Arial,sans-serif;color: rgba(0,0,0,0.54); font-size: 11px; line-height: 18px; padding-top: 12px; text-align: center;\"><div>You received this email to let you know about important changes to your Google Account and services.</div><div style=\"direction: ltr;\">&copy; 2026 Google LLC, <a class=\"afal\" style=\"font-family: Roboto-Regular,Helvetica,Arial,sans-serif;color: rgba(0,0,0,0.54); font-size: 11px; line-height: 18px; padding-top: 12px; text-align: center;\">1600 Amphitheatre Parkway, Mountain View, CA 94043, USA</a></div></div></div></td><td width=\"8\" style=\"width: 8px;\"></td></tr></table></td></tr><tr height=\"32\" style=\"height: 32px;\"><td></td></tr></table></body></html>"
+  },
+  {
+    "Subject": "Security alert",
+    "Sender": "Google <no-reply@accounts.google.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 16:27:37 GMT",
+    "Flags": [],
+    "Body_Text": "[image: Google]\r\nApp password created to sign in to your account\r\n\r\n\r\ndemo.signal.test@gmail.com\r\nIf you didn't generate this password for DemoApp, someone might be using\r\nyour account. Check and secure your account now.\r\nCheck activity\r\n<https://accounts.google.com/AccountChooser?Email=demo.signal.test@gmail.com&continue=https://myaccount.google.com/alert/nt/1784219257765?rfn%3D20%26rfnc%3D1%26eid%3D-3884911830885580007%26et%3D0>\r\nYou can also see security activity at\r\nhttps://myaccount.google.com/notifications\r\nYou received this email to let you know about important changes to your\r\nGoogle Account and services.\r\n\u00a9 2026 Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+    "Body_Html": "<!DOCTYPE html><html lang=\"en\"><head><meta name=\"format-detection\" content=\"email=no\"/><meta name=\"format-detection\" content=\"date=no\"/><style nonce=\"9Uri2KOz_L2mHnKcNPkB_Q\">.awl a {color: #FFFFFF; text-decoration: none;} .abml a {color: #000000; font-family: Roboto-Medium,Helvetica,Arial,sans-serif; font-weight: bold; text-decoration: none;} .adgl a {color: rgba(0, 0, 0, 0.87); text-decoration: none;} .afal a {color: #b0b0b0; text-decoration: none;} @media screen and (min-width: 600px) {.v2sp {padding: 6px 30px 0px;} .v2rsp {padding: 0px 10px;}} @media screen and (min-width: 600px) {.mdv2rw {padding: 40px 40px;}} </style><link href=\"//fonts.googleapis.com/css?family=Google+Sans\" rel=\"stylesheet\" type=\"text/css\" nonce=\"9Uri2KOz_L2mHnKcNPkB_Q\"/></head><body style=\"margin: 0; padding: 0;\" bgcolor=\"#FFFFFF\"><table width=\"100%\" height=\"100%\" style=\"min-width: 348px;\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" lang=\"en\"><tr height=\"32\" style=\"height: 32px;\"><td></td></tr><tr align=\"center\"><td><div itemscope itemtype=\"//schema.org/EmailMessage\"><div itemprop=\"action\" itemscope itemtype=\"//schema.org/ViewAction\"><link itemprop=\"url\" href=\"https://accounts.google.com/AccountChooser?Email=demo.signal.test@gmail.com&amp;continue=https://myaccount.google.com/alert/nt/1784219257765?rfn%3D20%26rfnc%3D1%26eid%3D-3884911830885580007%26et%3D0\"/><meta itemprop=\"name\" content=\"Review Activity\"/></div></div><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"padding-bottom: 20px; max-width: 516px; min-width: 220px;\"><tr><td width=\"8\" style=\"width: 8px;\"></td><td><div style=\"border-style: solid; border-width: thin; border-color:#dadce0; border-radius: 8px; padding: 40px 20px;\" align=\"center\" class=\"mdv2rw\"><img src=\"https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_74x24dp.png\" width=\"74\" height=\"24\" aria-hidden=\"true\" style=\"margin-bottom: 16px;\" alt=\"Google\"><div style=\"font-family: &#39;Google Sans&#39;,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;border-bottom: thin solid #dadce0; color: rgba(0,0,0,0.87); line-height: 32px; padding-bottom: 24px;text-align: center; word-break: break-word;\"><div style=\"font-size: 24px;\">App password created to sign in to your account </div><table align=\"center\" style=\"margin-top:8px;\"><tr style=\"line-height: normal;\"><td align=\"right\" style=\"padding-right:8px;\"><img width=\"20\" height=\"20\" style=\"width: 20px; height: 20px; vertical-align: sub; border-radius: 50%;;\" src=\"https://lh3.googleusercontent.com/a/ACg8ocIZP6NxAn_Hm57oGOeyvTWE2nCV98JWd0ASsxpWN9R98WyK-Q=s96-c\" alt=\"\"></td><td><a style=\"font-family: &#39;Google Sans&#39;,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color: rgba(0,0,0,0.87); font-size: 14px; line-height: 20px;\">demo.signal.test@gmail.com</a></td></tr></table> </div><div style=\"font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 14px; color: rgba(0,0,0,0.87); line-height: 20px;padding-top: 20px; text-align: left;\">If you didn't generate this password for DemoApp, someone might be using your account. Check and secure your account now.<div style=\"padding-top: 32px; text-align: center;\"><a href=\"https://accounts.google.com/AccountChooser?Email=demo.signal.test@gmail.com&amp;continue=https://myaccount.google.com/alert/nt/1784219257765?rfn%3D20%26rfnc%3D1%26eid%3D-3884911830885580007%26et%3D0\" target=\"_blank\" link-id=\"main-button-link\" style=\"font-family: &#39;Google Sans Flex&#39;,&#39;Google Sans Text&#39;,&#39;Google Sans&#39;,&#39;Noto Sans&#39;,Arial,Helvetica,sans-serif; line-height: 16px; color: #ffffff; font-weight: 500; text-decoration: none; font-size: 14px;display:inline-block;padding: 12px 24px;background-color: #0b57d0; border-radius: 9999px; min-width: 64px;\">Check activity</a></div></div><div style=\"padding-top: 20px; font-size: 12px; line-height: 16px; color: #5f6368; letter-spacing: 0.3px; text-align: center\">You can also see security activity at<br><a href=\"https://myaccount.google.com/notifications\" style=\"text-decoration: none; color: #4285F4;\" target=\"_blank\">https://myaccount.google.com/notifications</a></div></div><div style=\"text-align: left;\"><div style=\"font-family: Roboto-Regular,Helvetica,Arial,sans-serif;color: rgba(0,0,0,0.54); font-size: 11px; line-height: 18px; padding-top: 12px; text-align: center;\"><div>You received this email to let you know about important changes to your Google Account and services.</div><div style=\"direction: ltr;\">&copy; 2026 Google LLC, <a class=\"afal\" style=\"font-family: Roboto-Regular,Helvetica,Arial,sans-serif;color: rgba(0,0,0,0.54); font-size: 11px; line-height: 18px; padding-top: 12px; text-align: center;\">1600 Amphitheatre Parkway, Mountain View, CA 94043, USA</a></div></div></div></td><td width=\"8\" style=\"width: 8px;\"></td></tr></table></td></tr><tr height=\"32\" style=\"height: 32px;\"><td></td></tr></table></body></html>"
+  },
+  {
+    "Subject": "Security Notice: Your account password has been successfully changed Body:",
+    "Sender": "Harshili Patni <harshiliitmbu@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:04:46 +0530",
+    "Flags": [],
+    "Body_Text": "Hello,\r\n\r\nThis email confirms that the password for your corporate portal account was\r\nsuccessfully updated today at 10:00 AM EST.\r\n\r\n*Did you not make this change?*\r\n\r\nIf you did not authorize this password reset, please contact the IT\r\nSecurity Desk immediately at extension 4400 or reply directly to this email\r\nto lock your account.\r\n\r\nBest,\r\n\r\nIT Helpdesk",
+    "Body_Html": "<div dir=\"ltr\"><p>Hello,</p><p>This email confirms that the password for your corporate portal account was successfully updated today at 10:00 AM EST.</p><blockquote><p><b>Did you not make this change?</b></p><p>If you did not authorize this password reset, please contact the IT Security Desk immediately at extension 4400 or reply directly to this email to lock your account.</p></blockquote><p>Best,</p><p>IT Helpdesk</p></div>"
+  },
+  {
+    "Subject": "AllSubject: Welcome aboard! Important details for your first day",
+    "Sender": "VIKI PATNI <vikispatni11@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:12:47 +0530",
+    "Flags": [],
+    "Body_Text": "5. HR / Employee Onboarding Welcome\r\nSubject: Welcome aboard! Important details for your first day\r\nBody:\r\nHi Sam,\r\n\r\nWe are thrilled to welcome you to the team this coming Monday!\r\n\r\nPlease arrive at the main lobby by 9:00 AM and ask for Sarah. Remember to\r\nbring a valid government-issued ID for your paperwork. Your laptop,\r\nworkstation, and welcome swag are all set up and ready to go.\r\n\r\nWe\u2019re excited to see the impact you\u2019ll make here!\r\n\r\nWarmly,\r\n\r\nThe HR & Culture Team",
+    "Body_Html": "<div dir=\"auto\">5. HR / Employee Onboarding Welcome<div dir=\"auto\">Subject: Welcome aboard! Important details for your first day</div><div dir=\"auto\">Body:</div><div dir=\"auto\">Hi Sam,</div><div dir=\"auto\"><br></div><div dir=\"auto\">We are thrilled to welcome you to the team this coming Monday!</div><div dir=\"auto\"><br></div><div dir=\"auto\">Please arrive at the main lobby by 9:00 AM and ask for Sarah. Remember to bring a valid government-issued ID for your paperwork. Your laptop, workstation, and welcome swag are all set up and ready to go.</div><div dir=\"auto\"><br></div><div dir=\"auto\">We\u2019re excited to see the impact you\u2019ll make here!</div><div dir=\"auto\"><br></div><div dir=\"auto\">Warmly,</div><div dir=\"auto\"><br></div><div dir=\"auto\">The HR &amp; Culture Team</div><div dir=\"auto\"><br></div><div dir=\"auto\"><br></div></div>"
+  },
+  {
+    "Subject": "Inside: The top 3 marketing trends dominating 2026",
+    "Sender": "VIKI PATNI <vikispatni11@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:14:11 +0530",
+    "Flags": [],
+    "Body_Text": "6. Marketing / Monthly Newsletter\r\nSubject: \ud83d\udca1 Inside: The top 3 marketing trends dominating 2026\r\nBody:\r\nHey Marketer,\r\n\r\nThe digital landscape is moving faster than ever. This month, we are\r\nbreaking down the major shifts you need to know to keep your brand ahead of\r\nthe competition:\r\n\r\nAI Personalization: How hyper-targeted content is driving 3x engagement.\r\n\r\nPrivacy-First Analytics: Navigating the post-cookie ecosystem.\r\n\r\nShort-Form Video: The exact framework we used to gain 50k followers last\r\nmonth.\r\n\r\n[Click here to read the full breakdown on our blog.]\r\n\r\nCheers,\r\n\r\nThe Growth Team\r\n\r\n7. Account Management / QBR Scheduling\r\nSubject: Scheduling our upcoming Quarterly Business Review (QBR)\r\nBody:\r\nHi Jessica,\r\n\r\nI hope you're having a great week.\r\n\r\nAs we approach the end of the quarter, I\u2019d love to schedule our Quarterly\r\nBusiness Review to look over your account's performance metrics, review\r\nROI, and discuss your strategic goals for the upcoming months.\r\n\r\nCould you please share 2 or 3 time slots next week that work best for your\r\nteam?\r\n\r\nBest,\r\n\r\n[Your Name]\r\n\r\nCustomer Success Manager\r\n\r\n8. Operations / Facilities Notice\r\nSubject: NOTICE: Scheduled office power outage this Saturday\r\nBody:\r\nHi Everyone,\r\n\r\nPlease be advised that the main office building will undergo scheduled\r\nelectrical maintenance this Saturday, July 18, from 6:00 AM to 4:00 PM.\r\n\r\nDuring this window, there will be no power or internet connectivity in the\r\nbuilding. Please ensure you save all your work and completely shut down\r\nyour desktop computers before leaving on Friday evening.\r\n\r\nThank you for your cooperation.\r\n\r\nFacilities Management\r\n\r\n9. Customer Support / Ticket Resolution\r\nSubject: Update regarding your support ticket #88921\r\nBody:\r\nHi Alex,\r\n\r\nOur engineering team has successfully resolved the login glitch you\r\nreported earlier today. The fix has been deployed, and you should now be\r\nable to access your dashboard without any errors.\r\n\r\nPlease clear your browser cache before trying again. If you run into any\r\nfurther issues, simply reply to this thread and we will dive right back in.\r\n\r\nThank you for your patience!\r\n\r\nBest,\r\n\r\nCustomer Support Team\r\n\r\n10. Legal & Compliance / Policy Update\r\nSubject: Action Required: Review updated Remote Work Policy\r\nBody:\r\nDear Employee,\r\n\r\nWe have updated our company's Remote Work Policy to reflect new guidelines\r\nregarding cybersecurity and data protection when working from home.\r\n\r\nThe updated policy document is attached to this email. All employees are\r\nrequired to review the policy and sign the acknowledgment form by Friday,\r\nJuly 24.\r\n\r\nThank you for your commitment to keeping our company data secure.\r\n\r\nSincerely,\r\n\r\nLegal & Compliance Team",
+    "Body_Html": "<div dir=\"auto\"><br><div dir=\"auto\"><br></div><div dir=\"auto\">6. Marketing / Monthly Newsletter</div><div dir=\"auto\">Subject: \ud83d\udca1 Inside: The top 3 marketing trends dominating 2026</div><div dir=\"auto\">Body:</div><div dir=\"auto\">Hey Marketer,</div><div dir=\"auto\"><br></div><div dir=\"auto\">The digital landscape is moving faster than ever. This month, we are breaking down the major shifts you need to know to keep your brand ahead of the competition:</div><div dir=\"auto\"><br></div><div dir=\"auto\">AI Personalization: How hyper-targeted content is driving 3x engagement.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Privacy-First Analytics: Navigating the post-cookie ecosystem.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Short-Form Video: The exact framework we used to gain 50k followers last month.</div><div dir=\"auto\"><br></div><div dir=\"auto\">[Click here to read the full breakdown on our blog.]</div><div dir=\"auto\"><br></div><div dir=\"auto\">Cheers,</div><div dir=\"auto\"><br></div><div dir=\"auto\">The Growth Team</div><div dir=\"auto\"><br></div><div dir=\"auto\">7. Account Management / QBR Scheduling</div><div dir=\"auto\">Subject: Scheduling our upcoming Quarterly Business Review (QBR)</div><div dir=\"auto\">Body:</div><div dir=\"auto\">Hi Jessica,</div><div dir=\"auto\"><br></div><div dir=\"auto\">I hope you&#39;re having a great week.</div><div dir=\"auto\"><br></div><div dir=\"auto\">As we approach the end of the quarter, I\u2019d love to schedule our Quarterly Business Review to look over your account&#39;s performance metrics, review ROI, and discuss your strategic goals for the upcoming months.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Could you please share 2 or 3 time slots next week that work best for your team?</div><div dir=\"auto\"><br></div><div dir=\"auto\">Best,</div><div dir=\"auto\"><br></div><div dir=\"auto\">[Your Name]</div><div dir=\"auto\"><br></div><div dir=\"auto\">Customer Success Manager</div><div dir=\"auto\"><br></div><div dir=\"auto\">8. Operations / Facilities Notice</div><div dir=\"auto\">Subject: NOTICE: Scheduled office power outage this Saturday</div><div dir=\"auto\">Body:</div><div dir=\"auto\">Hi Everyone,</div><div dir=\"auto\"><br></div><div dir=\"auto\">Please be advised that the main office building will undergo scheduled electrical maintenance this Saturday, July 18, from 6:00 AM to 4:00 PM.</div><div dir=\"auto\"><br></div><div dir=\"auto\">During this window, there will be no power or internet connectivity in the building. Please ensure you save all your work and completely shut down your desktop computers before leaving on Friday evening.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Thank you for your cooperation.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Facilities Management</div><div dir=\"auto\"><br></div><div dir=\"auto\">9. Customer Support / Ticket Resolution</div><div dir=\"auto\">Subject: Update regarding your support ticket #88921</div><div dir=\"auto\">Body:</div><div dir=\"auto\">Hi Alex,</div><div dir=\"auto\"><br></div><div dir=\"auto\">Our engineering team has successfully resolved the login glitch you reported earlier today. The fix has been deployed, and you should now be able to access your dashboard without any errors.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Please clear your browser cache before trying again. If you run into any further issues, simply reply to this thread and we will dive right back in.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Thank you for your patience!</div><div dir=\"auto\"><br></div><div dir=\"auto\">Best,</div><div dir=\"auto\"><br></div><div dir=\"auto\">Customer Support Team</div><div dir=\"auto\"><br></div><div dir=\"auto\">10. Legal &amp; Compliance / Policy Update</div><div dir=\"auto\">Subject: Action Required: Review updated Remote Work Policy</div><div dir=\"auto\">Body:</div><div dir=\"auto\">Dear Employee,</div><div dir=\"auto\"><br></div><div dir=\"auto\">We have updated our company&#39;s Remote Work Policy to reflect new guidelines regarding cybersecurity and data protection when working from home.</div><div dir=\"auto\"><br></div><div dir=\"auto\">The updated policy document is attached to this email. All employees are required to review the policy and sign the acknowledgment form by Friday, July 24.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Thank you for your commitment to keeping our company data secure.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Sincerely,</div><div dir=\"auto\"><br></div><div dir=\"auto\">Legal &amp; Compliance Team</div></div>"
+  },
+  {
+    "Subject": "NOTICE: Scheduled office power outage this Saturday",
+    "Sender": "VIKI PATNI <vikispatni11@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:17:26 +0530",
+    "Flags": [],
+    "Body_Text": "Operations / Facilities Notice\r\nSubject: NOTICE: Scheduled office power outage this Saturday\r\nBody:\r\nHi Everyone,\r\n\r\nPlease be advised that the main office building will undergo scheduled\r\nelectrical maintenance this Saturday, July 18, from 6:00 AM to 4:00 PM.\r\n\r\nDuring this window, there will be no power or internet connectivity in the\r\nbuilding. Please ensure you save all your work and completely shut down\r\nyour desktop computers before leaving on Friday evening.\r\n\r\nThank you for your cooperation.\r\n\r\nFacilities Management",
+    "Body_Html": "<div dir=\"auto\">Operations / Facilities Notice<div dir=\"auto\">Subject: NOTICE: Scheduled office power outage this Saturday</div><div dir=\"auto\">Body:</div><div dir=\"auto\">Hi Everyone,</div><div dir=\"auto\"><br></div><div dir=\"auto\">Please be advised that the main office building will undergo scheduled electrical maintenance this Saturday, July 18, from 6:00 AM to 4:00 PM.</div><div dir=\"auto\"><br></div><div dir=\"auto\">During this window, there will be no power or internet connectivity in the building. Please ensure you save all your work and completely shut down your desktop computers before leaving on Friday evening.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Thank you for your cooperation.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Facilities Management</div><div dir=\"auto\"><br></div><div dir=\"auto\"><br></div></div>"
+  },
+  {
+    "Subject": "Update regarding your support ticket #88921",
+    "Sender": "VIKI PATNI <vikispatni11@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:17:47 +0530",
+    "Flags": [],
+    "Body_Text": "9. Customer Support / Ticket Resolution\r\nSubject: Update regarding your support ticket #88921\r\nBody:\r\nHi Alex,\r\n\r\nOur engineering team has successfully resolved the login glitch you\r\nreported earlier today. The fix has been deployed, and you should now be\r\nable to access your dashboard without any errors.\r\n\r\nPlease clear your browser cache before trying a",
+    "Body_Html": "<div dir=\"auto\">9. Customer Support / Ticket Resolution<div dir=\"auto\">Subject: Update regarding your support ticket #88921</div><div dir=\"auto\">Body:</div><div dir=\"auto\">Hi Alex,</div><div dir=\"auto\"><br></div><div dir=\"auto\">Our engineering team has successfully resolved the login glitch you reported earlier today. The fix has been deployed, and you should now be able to access your dashboard without any errors.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Please clear your browser cache before trying a</div></div>"
+  },
+  {
+    "Subject": "Scheduling our upcoming Quarterly Business Review (QBR)",
+    "Sender": "VIKI PATNI <vikispatni11@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:16:29 +0530",
+    "Flags": [],
+    "Body_Text": "7. Account Management / QBR Scheduling\r\nSubject: Scheduling our upcoming Quarterly Business Review (QBR)\r\nBody:\r\nHi Jessica,\r\n\r\nI hope you're having a great week.\r\n\r\nAs we approach the end of the quarter, I\u2019d love to schedule our Quarterly\r\nBusiness Review to look over your account's performance metrics, review\r\nROI, and discuss your strategic goals for the upcoming months.\r\n\r\nCould you please share 2 or 3 time slots next week that work best for your\r\nteam?\r\n\r\nBest,\r\n\r\n[Your Name]\r\n\r\nCustomer Success Manager",
+    "Body_Html": "<div dir=\"auto\"><br><div dir=\"auto\"><br></div><div dir=\"auto\">7. Account Management / QBR Scheduling</div><div dir=\"auto\">Subject: Scheduling our upcoming Quarterly Business Review (QBR)</div><div dir=\"auto\">Body:</div><div dir=\"auto\">Hi Jessica,</div><div dir=\"auto\"><br></div><div dir=\"auto\">I hope you&#39;re having a great week.</div><div dir=\"auto\"><br></div><div dir=\"auto\">As we approach the end of the quarter, I\u2019d love to schedule our Quarterly Business Review to look over your account&#39;s performance metrics, review ROI, and discuss your strategic goals for the upcoming months.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Could you please share 2 or 3 time slots next week that work best for your team?</div><div dir=\"auto\"><br></div><div dir=\"auto\">Best,</div><div dir=\"auto\"><br></div><div dir=\"auto\">[Your Name]</div><div dir=\"auto\"><br></div><div dir=\"auto\">Customer Success Manager</div><div dir=\"auto\"><br></div><div dir=\"auto\"><br></div></div>"
+  },
+  {
+    "Subject": "Action Required: Review updated Remote Work Policy",
+    "Sender": "VIKI PATNI <vikispatni11@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:18:24 +0530",
+    "Flags": [],
+    "Body_Text": "10. Legal & Compliance / Policy Update\r\nSubject: Action Required: Review updated Remote Work Policy\r\nBody:\r\nDear Employee,\r\n\r\nWe have updated our company's Remote Work Policy to reflect new guidelines\r\nregarding cybersecurity and data protection when working from home.\r\n\r\nThe updated policy document is attached to this email. All employees are\r\nrequired to review the policy and sign the acknowledgment form by Friday,\r\nJuly 24.\r\n\r\nThank you for your commitment to keeping our company data secure.\r\n\r\nSincerely,\r\n\r\nLegal & Compliance Team",
+    "Body_Html": "<div dir=\"auto\"><br><div dir=\"auto\"><br></div><div dir=\"auto\">10. Legal &amp; Compliance / Policy Update</div><div dir=\"auto\">Subject: Action Required: Review updated Remote Work Policy</div><div dir=\"auto\">Body:</div><div dir=\"auto\">Dear Employee,</div><div dir=\"auto\"><br></div><div dir=\"auto\">We have updated our company&#39;s Remote Work Policy to reflect new guidelines regarding cybersecurity and data protection when working from home.</div><div dir=\"auto\"><br></div><div dir=\"auto\">The updated policy document is attached to this email. All employees are required to review the policy and sign the acknowledgment form by Friday, July 24.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Thank you for your commitment to keeping our company data secure.</div><div dir=\"auto\"><br></div><div dir=\"auto\">Sincerely,</div><div dir=\"auto\"><br></div><div dir=\"auto\">Legal &amp; Compliance Team</div></div>"
+  },
+  {
+    "Subject": "Invitation to Interview: Senior Data Analyst position",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+hr@gmail.com",
+    "Date": "Thu, 16 Jul 2026 09:57:41 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Applicant,\r\n\r\nThank you for applying. We would love to invite you for a 30-minute introductory video call.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Invitation to Interview: Senior Data Analyst position",
+    "Sender": "Harshili Patni <harshiliitmbu@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:03:35 +0530",
+    "Flags": [],
+    "Body_Text": "Hi Applicant,\r\n\r\nThank you for applying for the Senior Data Analyst position at our firm.\r\nOur hiring team was highly impressed by your background and experience with\r\npredictive modeling.\r\n\r\nWe would love to invite you for a 30-minute introductory video call to\r\ndiscuss the role further and learn more about your career goals. Please let\r\nus know your availability over the next three business days.\r\n\r\nBest regards,\r\n\r\nThe HR Team",
+    "Body_Html": "<div dir=\"ltr\"><p>Hi Applicant,</p><p>Thank you for applying for the Senior Data Analyst position at our firm. Our hiring team was highly impressed by your background and experience with predictive modeling.</p><p>We would love to invite you for a 30-minute introductory video call to discuss the role further and learn more about your career goals. Please let us know your availability over the next three business days.</p><p>Best regards,</p><p>The HR Team</p></div>"
+  },
+  {
+    "Subject": "URGENT: Outstanding Invoice #INV-2026-089",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+accounts@gmail.com",
+    "Date": "Thu, 16 Jul 2026 09:57:43 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hello,\r\n\r\nThis is a friendly reminder that invoice #INV-2026-089 is now past due.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "URGENT: Outstanding Invoice #INV-2026-089",
+    "Sender": "Harshili Patni <harshiliitmbu@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:04:24 +0530",
+    "Flags": [],
+    "Body_Text": "This is a friendly reminder that invoice *#INV-2026-089*, issued on June\r\n15, is now past due. The total outstanding balance is $1,450.00.\r\n\r\nWe understand things get busy, but we kindly request that you process this\r\npayment as soon as possible to avoid any disruption to your services. A\r\ncopy of the invoice is attached to this email.\r\n\r\nThank you for your prompt attention to this matter.\r\n\r\nRegards,\r\n\r\nFinance & Accounts Department",
+    "Body_Html": "<div dir=\"ltr\"><p>This is a friendly reminder that invoice <b>#INV-2026-089</b>, issued on June 15, is now past due. The total outstanding balance is $1,450.00.</p><p>We understand things get busy, but we kindly request that you process this payment as soon as possible to avoid any disruption to your services. A copy of the invoice is attached to this email.</p><p>Thank you for your prompt attention to this matter.</p><p>Regards,</p><p>Finance &amp; Accounts Department</p></div>"
+  },
+  {
+    "Subject": "Quick question regarding your Q3 growth strategies",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+sales@gmail.com",
+    "Date": "Thu, 16 Jul 2026 09:57:39 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Team,\n\nI\u2019ve been following your company\u2019s recent expansions... Do you have 10 minutes this Thursday?",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Quick question regarding your Q3 growth strategies",
+    "Sender": "Harshili Patni <harshiliitmbu@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 22:02:50 +0530",
+    "Flags": [],
+    "Body_Text": "Hi Team,\r\n\r\nI\u2019ve been following your company\u2019s recent expansions and noticed you are\r\nscaling your operations this quarter. Many firms in your space struggle\r\nwith lead conversion efficiency during rapid growth.\r\n\r\nWe help teams automate their top-of-funnel pipeline, typically increasing\r\nconversion rates by 20%. Do you have 10 minutes this Thursday for a brief\r\nintroductory call?\r\n\r\nBest regards,",
+    "Body_Html": "<div dir=\"ltr\"><p>Hi Team,</p><p>I\u2019ve been following your company\u2019s recent expansions and noticed you are scaling your operations this quarter. Many firms in your space struggle with lead conversion efficiency during rapid growth.</p><p>We help teams automate their top-of-funnel pipeline, typically increasing conversion rates by 20%. Do you have 10 minutes this Thursday for a brief introductory call?</p><p>Best regards,</p></div>"
+  },
+  {
+    "Subject": "Q2 Budget Review Approval Required",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+finance@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:42 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Team,\r\n\r\nThe updated allocation for the upcoming quarter is ready. Please review the spreadsheet and submit your approvals by Friday evening.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Urgent: Expense Reimbursement Discrepancy",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+finance@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:44 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hello,\r\n\r\nWe noticed a missing receipt for your travel claim on June 14th. Please upload the missing document so we can process your payout.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Exclusive Beta Access: Optimize your cloud workflows",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+sales@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:47 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi there,\r\n\r\nWe just launched early access to our new cloud management suite. Would you be open to a 5-minute preview next Tuesday?",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Proposal Follow-up: Enterprise Tier Pricing",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+sales@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:50 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Team,\r\n\r\nFollowing up on our conversation last week. I've attached the adjusted enterprise pricing model with the volume discounts we discussed.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Your RSVP is Confirmed: Tech Vision Summit 2026",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+marketing@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:53 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Get ready! Your ticket for the virtual summit is locked in. The keynote session kicks off streaming live at 9:00 AM EST.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Quarterly Performance Review Cycle is Open",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+hr@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:56 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Everyone,\r\n\r\nThe self-evaluation portal is now open for the current cycle. Please complete your written assessments before the end of the month.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Update: Changes to Company Health Benefits Package",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+hr@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:04:58 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Dear Team,\r\n\r\nPlease review the attached document outlining the expanded medical coverages and updated dental options taking effect next month.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Schedule Conflict: Interview Rescheduling Request",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+hr@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:01 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Candidate,\r\n\r\nDue to an unexpected conflict, we need to shift our interview time. Would any of the timeslots this Thursday afternoon work for you?",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Ticket #99214: Missing API payload data resolved",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+support@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:04 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hello,\r\n\r\nOur technical team patched the webhooks issue. The system is parsing JSON payloads normally again. Let us know if you encounter any errors.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Feedback Request: How did we handle your recent request?",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+support@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:07 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi customer,\r\n\r\nWe value your input! Please take 30 seconds to rate your experience with our technical support agent earlier today.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "CRITICAL: Mandatory Security Patch for Laptops",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+it@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:10 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Attention,\r\n\r\nA critical system vulnerability requires an immediate update. Please restart your device to trigger the automated security installation.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "NDA Signature Request: Project Echo Partnerships",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+legal@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:12 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hello,\r\n\r\nThe mutual non-disclosure agreement for the upcoming integration is ready for signature inside the corporate document portal.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Press Release Draft: Q2 Technological Innovation Milestone",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+pr@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:15 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Team,\r\n\r\nAttached is the final draft of our upcoming product announcement wire. Please review the quotes for final approval before distribution.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Inventory Notice: Office Supply Restocking Completed",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+ops@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:18 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi All,\r\n\r\nThe central supply cabinet has been restocked with essentials. If you need specialized hardware accessories, file a request through the internal desk.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Scheduled Maintenance: Server Room HVAC Testing",
+    "Sender": "harshiliitmbu@gmail.com",
+    "Recipient": "demo.signal.test+ops@gmail.com",
+    "Date": "Thu, 16 Jul 2026 10:05:21 -0700 (PDT)",
+    "Flags": [],
+    "Body_Text": "Hi Team,\r\n\r\nEngineers will perform routine testing on the facility cooling systems this evening. Expect brief fluctuations in room temperatures.",
+    "Body_Html": ""
+  },
+  {
+    "Subject": "Demo mail",
+    "Sender": "harshili Patni <harshilipatni21@gmail.com>",
+    "Recipient": "\"demo.signal.test@gmail.com\" <demo.signal.test@gmail.com>",
+    "Date": "Thu, 16 Jul 2026 23:14:35 +0530",
+    "Flags": [],
+    "Body_Text": "",
+    "Body_Html": "<div dir=\"ltr\"><br></div>"
+  },
+  {
+    "Subject": "Fwd: Demo",
+    "Sender": "Harshili Patni <harshiliitmbu@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 23:56:54 +0530",
+    "Flags": [],
+    "Body_Text": "---------- Forwarded message ---------\r\nFrom: harshili Patni <harshilipatni21@gmail.com>\r\nDate: Thu, 16 Jul 2026 at 21:34\r\nSubject: Demo\r\nTo: <harshiliitmbu@gmail.com>",
+    "Body_Html": "<div dir=\"ltr\"><br><br><div class=\"gmail_quote gmail_quote_container\"><div dir=\"ltr\" class=\"gmail_attr\">---------- Forwarded message ---------<br>From: <strong class=\"gmail_sendername\" dir=\"auto\">harshili Patni</strong> <span dir=\"auto\">&lt;<a href=\"mailto:harshilipatni21@gmail.com\">harshilipatni21@gmail.com</a>&gt;</span><br>Date: Thu, 16 Jul 2026 at 21:34<br>Subject: Demo<br>To:  &lt;<a href=\"mailto:harshiliitmbu@gmail.com\">harshiliitmbu@gmail.com</a>&gt;<br></div><br><br><div dir=\"ltr\"><br></div>\r\n</div></div>"
+  },
+  {
+    "Subject": "Fwd: Good",
+    "Sender": "Harshili Patni <harshiliitmbu@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 23:57:00 +0530",
+    "Flags": [],
+    "Body_Text": "---------- Forwarded message ---------\r\nFrom: harshili Patni <harshilipatni21@gmail.com>\r\nDate: Thu, 16 Jul 2026 at 21:10\r\nSubject: Good\r\nTo: <harshiliitmbu@gmail.com>\r\n\r\n\r\nThis is a demo email\r\nHarshili",
+    "Body_Html": "<div dir=\"ltr\"><br><br><div class=\"gmail_quote gmail_quote_container\"><div dir=\"ltr\" class=\"gmail_attr\">---------- Forwarded message ---------<br>From: <strong class=\"gmail_sendername\" dir=\"auto\">harshili Patni</strong> <span dir=\"auto\">&lt;<a href=\"mailto:harshilipatni21@gmail.com\">harshilipatni21@gmail.com</a>&gt;</span><br>Date: Thu, 16 Jul 2026 at 21:10<br>Subject: Good<br>To:  &lt;<a href=\"mailto:harshiliitmbu@gmail.com\">harshiliitmbu@gmail.com</a>&gt;<br></div><br><br><div dir=\"auto\"><div>This is a demo email\u00a0</div><div data-smartmail=\"gmail_signature\">Harshili </div></div>\r\n</div></div>"
+  },
+  {
+    "Subject": "Fwd: Bad",
+    "Sender": "Harshili Patni <harshiliitmbu@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Thu, 16 Jul 2026 23:57:05 +0530",
+    "Flags": [],
+    "Body_Text": "---------- Forwarded message ---------\r\nFrom: harshili Patni <harshilipatni21@gmail.com>\r\nDate: Thu, 16 Jul 2026 at 21:32\r\nSubject: Bad\r\nTo: <harshiliitmbu@gmail.com>\r\n\r\n\r\nTHis is a demo email.",
+    "Body_Html": "<div dir=\"ltr\"><br><br><div class=\"gmail_quote gmail_quote_container\"><div dir=\"ltr\" class=\"gmail_attr\">---------- Forwarded message ---------<br>From: <strong class=\"gmail_sendername\" dir=\"auto\">harshili Patni</strong> <span dir=\"auto\">&lt;<a href=\"mailto:harshilipatni21@gmail.com\">harshilipatni21@gmail.com</a>&gt;</span><br>Date: Thu, 16 Jul 2026 at 21:32<br>Subject: Bad<br>To:  &lt;<a href=\"mailto:harshiliitmbu@gmail.com\">harshiliitmbu@gmail.com</a>&gt;<br></div><br><br><div dir=\"ltr\">THis is a demo email.<div><br></div></div>\r\n</div></div>"
+  }
+]

@@ -7,7 +7,7 @@ interface Props {
   value: string | number;
   icon: LucideIcon;
   trend?: string;
-  tone?: "default" | "success" | "warning" | "destructive" | "info";
+  tone?: "default" | "success" | "warning" | "destructive" | "info" | "primary-solid";
 }
 
 const toneMap = {
@@ -16,6 +16,7 @@ const toneMap = {
   warning: "bg-warning/15 text-warning ring-warning/20",
   destructive: "bg-destructive/10 text-destructive ring-destructive/15",
   info: "bg-info/10 text-info ring-info/15",
+  "primary-solid": "bg-white/20 text-white ring-white/30",
 };
 
 const barMap = {
@@ -24,6 +25,7 @@ const barMap = {
   warning: "from-warning/60 to-warning",
   destructive: "from-destructive/60 to-destructive",
   info: "from-info/60 to-info",
+  "primary-solid": "from-white/60 to-white",
 };
 
 export function KpiCard({ label, value, icon: Icon, trend, tone = "default" }: Props) {

@@ -47,28 +47,28 @@ function ManualReviewPage() {
 
   const handleApprove = (emailId: string) =>
     withLoading(emailId, "approve", async () => {
-      await approveEmail(emailId);
+      await approveEmail({ data: emailId });
       toast.success("Email approved and marked as completed");
       invalidateAll();
     });
 
   const handleReject = (emailId: string) =>
     withLoading(emailId, "reject", async () => {
-      await rejectEmail(emailId);
+      await rejectEmail({ data: emailId });
       toast.error("Email rejected");
       invalidateAll();
     });
 
   const handleReclassify = (emailId: string, department: string) =>
     withLoading(emailId, "reclassify", async () => {
-      await reclassifyEmail(emailId, department);
+      await reclassifyEmail({ data: { id: emailId, department } });
       toast.success(`Reclassified to ${department}`);
       invalidateAll();
     });
 
   const handleCreateTask = (emailId: string) =>
     withLoading(emailId, "task", async () => {
-      const result = await createTaskFromEmail(emailId);
+      const result = await createTaskFromEmail({ data: emailId });
       if (result.ok) {
         toast.success(`ClickUp task ${result.taskId} created`);
       } else {

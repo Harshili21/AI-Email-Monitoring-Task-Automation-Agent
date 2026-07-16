@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Email {
+  id              String         @id @default(uuid())
+  sender          String
+  senderEmail     String
+  recipient       String
+  clientId        String
+  clientName      String
+  subject         String
+  body            String
+  htmlBody        String
+  plainBody       String
+  department      String
+  status          String
+  receivedAt      DateTime
+  conversationId  String
+  messageId       String
+
+  ai              EmailAI?
+  clickup         ClickUpTask?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model EmailAI {
+  id                 String   @id @default(uuid())
+  summary            String
+  sentiment          String
+  category           String
+  urgency            String
+  businessImportance String
+  confidence         Float
+
+  emailId            String   @unique
+  email              Email    @relation(fields: [emailId], references: [id], onDelete: Cascade)
+}
+
+model ClickUpTask {
+  id           String   @id @default(uuid())
+  taskId       String
+  folder       String
+  emailSubject String
+  status       String
+  retryCount   Int      @default(0)
+  errorMessage String?
+  createdAt    DateTime @default(now())
+
+  emailId      String   @unique
+  email        Email    @relation(fields: [emailId], references: [id], onDelete: Cascade)
+}
+
+model Mailbox {
+  id        String   @id @default(uuid())
+  email     String
+  active    Boolean  @default(true)
+}
+
+model Integration {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  connected Boolean  @default(false)
+  detail    String?
+}

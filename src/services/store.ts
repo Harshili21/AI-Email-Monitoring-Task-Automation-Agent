@@ -2,17 +2,22 @@
  * Shared in-memory store for emails and tasks.
  * All services read/write from this store so mutations are reflected across the app.
  */
-import { mockEmails, mockTasks } from "./mockData";
+import { mockEmails, mockTasks, mockIntegrations, mockMailboxes } from "./mockData";
 import type { Email, ClickUpTask, Department } from "@/types";
+import type { IntegrationStatus } from "./mockData";
 
 class Store {
   emails: Email[];
   tasks: ClickUpTask[];
+  integrations: IntegrationStatus[];
+  mailboxes: { id: string; email: string; active: boolean }[];
 
   constructor() {
     // Deep clone to avoid mutating the original mock arrays
     this.emails = JSON.parse(JSON.stringify(mockEmails));
     this.tasks = JSON.parse(JSON.stringify(mockTasks));
+    this.integrations = JSON.parse(JSON.stringify(mockIntegrations));
+    this.mailboxes = JSON.parse(JSON.stringify(mockMailboxes));
   }
 
   // ── Email helpers ──────────────────────────────────────────
@@ -146,6 +151,25 @@ class Store {
             100,
         ) / 100,
     };
+  }
+  // ── Settings helpers ──────────────────────────────────────────
+
+  getIntegrations(): IntegrationStatus[] {
+    return this.integrations;
+  }
+
+  getMailboxes() {
+    return this.mailboxes;
+  }
+
+  toggleMailbox(id: string): void {
+    const mb = this.mailboxes.find(m => m.id === id);
+    if (mb) mb.active = !mb.active;
+  }
+
+  toggleIntegration(name: string): void {
+    const int = this.integrations.find(i => i.name === name);
+    if (int) int.connected = !int.connected;
   }
 }
 

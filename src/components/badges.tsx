@@ -34,7 +34,7 @@ export function SentimentBadge({ sentiment }: { sentiment: Sentiment }) {
 }
 
 export function DepartmentBadge({ department }: { department: Department }) {
-  return <Badge role="status" aria-label={`Department ${department}`} variant="secondary" className="font-medium chip-glow">{department}</Badge>;
+  return <Badge role="status" aria-label={`Department ${department}`} variant="secondary" className="font-medium">{department}</Badge>;
 }
 
 export function ConfidenceBadge({ value }: { value: number }) {

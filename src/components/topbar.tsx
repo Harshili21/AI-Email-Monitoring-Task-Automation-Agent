@@ -41,7 +41,7 @@ export function Topbar() {
 
   const { data: emailData } = useQuery({
     queryKey: ["all-emails-search"],
-    queryFn: () => listEmails({ pageSize: 100 }),
+    queryFn: () => listEmails({ data: { pageSize: 100 } }),
   });
 
   const emails = emailData?.items ?? [];

@@ -37,7 +37,7 @@ function EmailsPage() {
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["emails", { search, department, status, client, minConf, page }],
-    queryFn: () => listEmails({ search, department, status, client, minConfidence: minConf, page, pageSize }),
+    queryFn: () => listEmails({ data: { search, department, status, client, minConfidence: minConf, page, pageSize } }),
   });
 
   const handleRefresh = async () => {
