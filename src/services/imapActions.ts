@@ -8,13 +8,14 @@ export const triggerImapFetch = createServerFn({ method: "POST" }).handler(async
 
   const execAsync = promisify(exec);
   try {
-    const scriptDir = "c:\\Users\\Harshili\\Desktop\\New folder (2)";
+    // Use the local scripts directory inside the project
+    const scriptDir = path.join(process.cwd(), "scripts");
     const pythonScriptPath = path.join(scriptDir, "imap_test3.py");
     
-    // Execute python script specifically in its own directory
+    // Execute the Python script
     await execAsync(`python "${pythonScriptPath}"`, { cwd: scriptDir });
-    
-    // The script will write emails_result.json inside scriptDir
+
+    // The python script now saves to the scripts directory, copy it to src/services
     const generatedPath = path.join(scriptDir, "emails_result.json");
     
     // Target location for the React App
