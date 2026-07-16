@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { mockEmails } from "./mockData";
+import { runPipeline } from "./pipeline";
 
 export const triggerImapFetch = createServerFn({ method: "POST" }).handler(async () => {
   const { exec } = await import("child_process");
@@ -9,26 +10,9 @@ export const triggerImapFetch = createServerFn({ method: "POST" }).handler(async
 
   const execAsync = promisify(exec);
   try {
-    // Use the local scripts directory inside the project
-    const scriptDir = path.join(process.cwd(), "scripts");
-    const pythonScriptPath = path.join(scriptDir, "imap_test3.py");
-    
-    // Execute the Python script
-    await execAsync(`python "${pythonScriptPath}"`, { cwd: scriptDir });
-
-    // The python script now saves to the scripts directory, copy it to src/services
-    const generatedPath = path.join(scriptDir, "emails_result.json");
-    
-    // Target location for the React App
-    // We use process.cwd() assuming it's the Vite project root
-    const targetPath = path.join(process.cwd(), "src", "services", "emails_result.json");
-    
-    if (fs.existsSync(generatedPath)) {
-      fs.copyFileSync(generatedPath, targetPath);
-      return { success: true, message: "Emails fetched and updated successfully." };
-    }
-    
-    return { success: false, message: `emails_result.json was not found at ${generatedPath}` };
+    // Run the full pipeline which handles Python script execution, OpenAI classification, and DB insertion
+    await runPipeline();
+    return { success: true, message: "Emails fetched, classified by AI, and inserted into database successfully." };
   } catch (error: any) {
     // Vercel serverless functions do not have Python or /bin/sh installed.
     // Gracefully fallback for the assessment demo.

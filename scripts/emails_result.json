@@ -313,5 +313,14 @@
     "Flags": [],
     "Body_Text": "---------- Forwarded message ---------\r\nFrom: harshili Patni <harshilipatni21@gmail.com>\r\nDate: Thu, 16 Jul 2026 at 21:32\r\nSubject: Bad\r\nTo: <harshiliitmbu@gmail.com>\r\n\r\n\r\nTHis is a demo email.",
     "Body_Html": "<div dir=\"ltr\"><br><br><div class=\"gmail_quote gmail_quote_container\"><div dir=\"ltr\" class=\"gmail_attr\">---------- Forwarded message ---------<br>From: <strong class=\"gmail_sendername\" dir=\"auto\">harshili Patni</strong> <span dir=\"auto\">&lt;<a href=\"mailto:harshilipatni21@gmail.com\">harshilipatni21@gmail.com</a>&gt;</span><br>Date: Thu, 16 Jul 2026 at 21:32<br>Subject: Bad<br>To:  &lt;<a href=\"mailto:harshiliitmbu@gmail.com\">harshiliitmbu@gmail.com</a>&gt;<br></div><br><br><div dir=\"ltr\">THis is a demo email.<div><br></div></div>\r\n</div></div>"
+  },
+  {
+    "Subject": "Update regarding my application",
+    "Sender": "Harshili Patni <harshiliitmbu@gmail.com>",
+    "Recipient": "demo.signal.test@gmail.com",
+    "Date": "Fri, 17 Jul 2026 02:24:55 +0530",
+    "Flags": [],
+    "Body_Text": "hello",
+    "Body_Html": "<div dir=\"ltr\">hello<div><br></div></div>"
   }
 ]
