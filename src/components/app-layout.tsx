@@ -11,7 +11,14 @@ export function AppLayout({ children }: { children?: ReactNode }) {
   const navigate = useNavigate();
   const isAuthRoute = pathname === "/";
 
-
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("user") || sessionStorage.getItem("user");
+      if (!stored && !isAuthRoute) {
+        navigate({ to: "/" });
+      }
+    }
+  }, [isAuthRoute, navigate]);
 
   if (isAuthRoute) return <>{children ?? <Outlet />}</>;
 
